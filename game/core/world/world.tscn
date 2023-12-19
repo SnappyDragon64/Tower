@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ftydf8wlapvp"]
+
+[ext_resource type="Script" path="res://game/core/world/world.gd" id="1_qs8ep"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_qs8ep")
+
+[node name="LevelHolder" type="Node2D" parent="."]
+
+[node name="SpawnedEntities" type="Node2D" parent="."]
