@@ -21,5 +21,11 @@ func _dash_timeout() -> void:
 		transition_requested.emit("fall")
 
 
+func _cooldown_timeout():
+	player.dash_cooldown = false
+
+
 func _exit() -> void:
 	player.velocity.x = 0.0
+	player.dash_cooldown = true
+	$CooldownTimer.start()

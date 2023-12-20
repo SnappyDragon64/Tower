@@ -14,6 +14,7 @@ extends CharacterBody2D
 var direction := 1
 var jump_count = 0
 var dash_count = 0
+var dash_cooldown = false
 
 
 # physics_process
@@ -22,3 +23,11 @@ func _physics_process(_delta: float) -> void:
 	model.apply_direction(direction)
 	
 	move_and_slide()
+
+
+func can_jump() -> bool:
+	return jump_count < max_jumps
+
+
+func can_dash() -> bool:
+	return not dash_cooldown and dash_count < max_dashes

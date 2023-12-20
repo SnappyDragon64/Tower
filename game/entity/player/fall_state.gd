@@ -16,13 +16,13 @@ func _enter(_msg = {}) -> void:
 
 func _state_physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
-		if coyote or player.jump_count < player.max_jumps:
+		if coyote or player.can_jump():
 			player.jump_count -= 1 if coyote else 0 # Current fall state effectively did not happen, so replenish a jump
 			transition_requested.emit("jump")
 		else:
 			jump_queued = true
 			$JumpQueueTimer.start()
-	elif player.dash_count < player.max_dashes and Input.is_action_just_pressed("dash"):
+	elif player.can_dash() and Input.is_action_just_pressed("dash"):
 		transition_requested.emit("dash")
 	
 	var run_input = Input.get_axis("move_left", "move_right")

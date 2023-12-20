@@ -9,7 +9,7 @@ func _enter(_message := {}) -> void:
 func _state_physics_process(delta: float) -> void:
 	if player.velocity.y >= 0.0 or Input.is_action_just_released("jump"):
 		transition_requested.emit("fall")
-	elif player.dash_count < player.max_dashes and Input.is_action_just_pressed("dash"):
+	elif player.can_dash() and Input.is_action_just_pressed("dash"):
 		transition_requested.emit("dash")
 	
 	var run_input = Input.get_axis("move_left", "move_right")

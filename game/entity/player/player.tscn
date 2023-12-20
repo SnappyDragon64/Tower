@@ -44,10 +44,14 @@ script = ExtResource("5_ilmt4")
 state_id = "fall"
 
 [node name="JumpQueueTimer" type="Timer" parent="StateMachine/FallState"]
+process_callback = 0
 wait_time = 0.25
+one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="StateMachine/FallState"]
+process_callback = 0
 wait_time = 0.25
+one_shot = true
 
 [node name="DashState" type="Node" parent="StateMachine"]
 script = ExtResource("8_0do5e")
@@ -58,6 +62,12 @@ process_callback = 0
 wait_time = 0.2
 one_shot = true
 
+[node name="CooldownTimer" type="Timer" parent="StateMachine/DashState"]
+process_callback = 0
+wait_time = 0.4
+one_shot = true
+
 [connection signal="timeout" from="StateMachine/FallState/JumpQueueTimer" to="StateMachine/FallState" method="_jump_queue_timeout"]
 [connection signal="timeout" from="StateMachine/FallState/CoyoteTimer" to="StateMachine/FallState" method="_coyote_timeout"]
 [connection signal="timeout" from="StateMachine/DashState/DashTimer" to="StateMachine/DashState" method="_dash_timeout"]
+[connection signal="timeout" from="StateMachine/DashState/CooldownTimer" to="StateMachine/DashState" method="_cooldown_timeout"]
