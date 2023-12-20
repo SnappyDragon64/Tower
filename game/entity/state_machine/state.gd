@@ -5,6 +5,7 @@ extends Node
 signal transition_requested(new_state_name: StringName, message: Dictionary)
 
 @export var state_id: String
+@onready var state_machine: StateMachine
 
 
 # Called when the state is entered

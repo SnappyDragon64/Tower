@@ -10,17 +10,17 @@
 [ext_resource type="Script" path="res://game/entity/player/dash_state.gd" id="8_0do5e"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfoky"]
-radius = 24.0
-height = 192.0
+radius = 18.0
+height = 136.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_u23no")
 
 [node name="PlayerModel" parent="." instance=ExtResource("7_k4am0")]
-scale = Vector2(1.6, 1.6)
+scale = Vector2(1.2, 1.2)
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 13)
+position = Vector2(0, -68)
 shape = SubResource("CapsuleShape2D_tfoky")
 
 [node name="StateMachine" type="Node" parent="."]
@@ -43,13 +43,21 @@ state_id = "jump"
 script = ExtResource("5_ilmt4")
 state_id = "fall"
 
+[node name="JumpQueueTimer" type="Timer" parent="StateMachine/FallState"]
+wait_time = 0.25
+
+[node name="CoyoteTimer" type="Timer" parent="StateMachine/FallState"]
+wait_time = 0.25
+
 [node name="DashState" type="Node" parent="StateMachine"]
 script = ExtResource("8_0do5e")
 state_id = "dash"
 
-[node name="Timer" type="Timer" parent="StateMachine/DashState"]
+[node name="DashTimer" type="Timer" parent="StateMachine/DashState"]
 process_callback = 0
 wait_time = 0.2
 one_shot = true
 
-[connection signal="timeout" from="StateMachine/DashState/Timer" to="StateMachine/DashState" method="_dash_timeout"]
+[connection signal="timeout" from="StateMachine/FallState/JumpQueueTimer" to="StateMachine/FallState" method="_jump_queue_timeout"]
+[connection signal="timeout" from="StateMachine/FallState/CoyoteTimer" to="StateMachine/FallState" method="_coyote_timeout"]
+[connection signal="timeout" from="StateMachine/DashState/DashTimer" to="StateMachine/DashState" method="_dash_timeout"]

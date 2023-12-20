@@ -5,6 +5,7 @@ extends Node
 @export var initial_state: NodePath
 @onready var current_state: State = get_node(initial_state)
 
+var last_state: String
 var states := {}
 
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 		if state is State:
 			states[state.state_id] = state
 			state.transition_requested.connect(_on_transition_requested)
+			state.state_machine = self
 	
 	current_state._enter()
 
@@ -36,6 +38,7 @@ func _on_transition_requested(new_state_id: StringName, message := {}) -> void:
 	
 	if new_state != null:
 		if new_state != current_state:
+			last_state = current_state.state_id
 			current_state._exit()
 			new_state._enter(message)
 			current_state = new_state

@@ -2,12 +2,12 @@ extends PlayerState
 
 
 func _enter(_msg = {}) -> void:
-	player.can_dash = false
+	player.dash_count += 1
 	player.model.play_animation("dash")
-	$Timer.start()
+	$DashTimer.start()
 
 
-func _state_physics_process(delta: float) -> void:
+func _state_physics_process(_delta: float) -> void:
 	player.velocity.x += player.dash * player.direction
 
 
