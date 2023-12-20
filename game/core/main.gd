@@ -6,7 +6,8 @@ extends Node2D
 
 # Inital settngs
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	pass
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 # Instantiate the title menu and destroy this scene

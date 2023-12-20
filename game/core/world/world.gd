@@ -3,6 +3,9 @@ extends Node2D
 ## The level loader that has a reference to the active player and level
 
 
+@onready var player_preload = preload('res://game/entity/player/player.tscn')
+
+
 var player: Player = null
 var active_level: Node2D = null
 
@@ -28,7 +31,7 @@ func spawn(entity: Variant, spawn_at := Vector2()) -> void:
 
 # Spawns player at the specified spawnpoint
 func spawn_player(spawnpoint := 0) -> void:
-	player = Player.new()
+	player = player_preload.instantiate()
 	var pos = Vector2()
 	
 	var spawnpoints = active_level.get_node_or_null("Spawnpoints")

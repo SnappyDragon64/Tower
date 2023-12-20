@@ -31,8 +31,8 @@ func _physics_process(delta: float) -> void:
 
 
 # Handles transition requests
-func _on_transition_requested(new_state_name: StringName, message := {}) -> void:
-	var new_state: State = states.get(new_state_name)
+func _on_transition_requested(new_state_id: StringName, message := {}) -> void:
+	var new_state: State = states.get(new_state_id)
 	
 	if new_state != null:
 		if new_state != current_state:

@@ -20,7 +20,6 @@ func load_data() -> void:
 		var save := FileAccess.open(_get_save_path(), FileAccess.READ)
 		var json_string := save.get_line()
 		var parsed_json: Dictionary = JSON.parse_string(json_string)
-		_fill_missing_values(parsed_json)
 		SaveData.current_save = parsed_json
 		save.close()
 
@@ -48,10 +47,3 @@ func _set_slot(save_slot: int) -> void:
 func _get_save_path(save_slot: int = current_slot) -> String:
 	var save_path := "user://save%s.dat" % save_slot
 	return save_path
-
-
-# Fills missing values in loaded saves
-func _fill_missing_values(dict: Dictionary) -> void:
-	for key in SaveData.DEFAULT.keys():
-		if not dict.has(key):
-			dict[key] = SaveData.DEFAULT[key]

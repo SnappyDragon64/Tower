@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://tblntbsle5co"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3tt3v"]
+size = Vector2(1000, 100)
+
+[node name="Debug" type="Node2D"]
+
+[node name="Spawnpoints" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="Spawnpoints"]
+position = Vector2(960, 400)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(960, 800)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_3tt3v")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+color = Color(0.0588235, 0.0627451, 0.129412, 1)
+polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)

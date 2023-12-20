@@ -1,6 +1,9 @@
 extends Node
 ## An interface to the level loader
 
+
+@onready var world_preload = preload("res://game/core/world/world.tscn")
+
 var _world: World = null
 var _current_level: PackedScene = null
 var _current_spawnpoint := 0
@@ -8,8 +11,11 @@ var _current_spawnpoint := 0
 
 # Sets up the level loader
 func create() -> void:
-	_world = World.new()
-	get_tree().get_root().add_child(_world)
+	for child in get_children():
+		child.queue_free()
+	
+	_world = world_preload.instantiate()
+	add_child(_world)
 
 
 # Gets a reference to the player
