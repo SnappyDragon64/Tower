@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://caioeub6pwumj"]
+[gd_scene load_steps=8 format=3 uid="uid://caioeub6pwumj"]
 
 [ext_resource type="Script" path="res://game/entity/component/model.gd" id="1_1m0hn"]
 
 [sub_resource type="Animation" id="Animation_j2ect"]
 resource_name = "dash"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -323,6 +324,7 @@ tracks/12/keys = {
 
 [sub_resource type="Animation" id="Animation_rnecy"]
 resource_name = "jump"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -640,12 +642,173 @@ tracks/12/keys = {
 "values": [Vector2(14, -8), Vector2(2, -2), Vector2(14, -8)]
 }
 
+[sub_resource type="Animation" id="Animation_uk6dd"]
+resource_name = "slide"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parts/LowerBody:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Parts/LowerBody/UpperBody/ArmR:rotation")
+tracks/1/interp = 4
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.89027]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Parts/LowerBody/UpperBody/ArmL:rotation")
+tracks/2/interp = 4
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.523599]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Parts/LowerBody/UpperBody/Head/HairFront/HairFlow:rotation")
+tracks/3/interp = 4
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0698132, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Parts/LowerBody:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.15708]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Parts/LegL:position")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 38)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Parts/LegL:rotation")
+tracks/6/interp = 4
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.10472]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Parts/LegR:position")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, 36)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Parts/LegR:rotation")
+tracks/8/interp = 4
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.354302]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AnimationPlayer:speed_scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Parts/LowerBody/UpperBody/Head:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0872665]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Parts/LowerBody/UpperBody/ArmR:position")
+tracks/11/interp = 2
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-22, -32)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Parts/LowerBody/UpperBody/ArmL:position")
+tracks/12/interp = 2
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(12, -4)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_10woe"]
 _data = {
 "dash": SubResource("Animation_j2ect"),
 "idle": SubResource("Animation_pu5ok"),
 "jump": SubResource("Animation_rnecy"),
-"run": SubResource("Animation_t67sa")
+"run": SubResource("Animation_t67sa"),
+"slide": SubResource("Animation_uk6dd")
 }
 
 [node name="PlayerModel" type="Node2D" node_paths=PackedStringArray("animation_player")]
@@ -656,8 +819,7 @@ animation_player = NodePath("AnimationPlayer")
 position = Vector2(0, -68)
 
 [node name="LowerBody" type="Polygon2D" parent="Parts"]
-position = Vector2(6, 6)
-rotation = 0.15708
+position = Vector2(0, 4)
 color = Color(0.603922, 0.0666667, 0.278431, 1)
 polygon = PackedVector2Array(0, 20, -8.32813, 11.6719, -12, 8, -7.5, -1.5, 6.25, -1.5, 10, 8)
 
@@ -667,7 +829,6 @@ polygon = PackedVector2Array(-8.125, -0.25, -11, -26, 0, -30, 9, -24, 6.771, -0.
 
 [node name="Head" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 position = Vector2(0, -30)
-rotation = -0.174533
 color = Color(1, 0.878431, 0.878431, 1)
 polygon = PackedVector2Array(0, -17, 5, -15, 4, -6, 0, -3, -4.8, -6, -6, -15)
 
@@ -682,7 +843,6 @@ polygon = PackedVector2Array(0, -22, 1.875, -25, -2.5, -28.125)
 [node name="HairFlow" type="Polygon2D" parent="Parts/LowerBody/UpperBody/Head/HairFront"]
 z_index = -1
 position = Vector2(0, -15)
-rotation = 0.698132
 color = Color(0, 0.498039, 1, 1)
 polygon = PackedVector2Array(-26, 29, -5, 1, 3.75, 1.875, 11, 14, 5.38626, -2.39873, -6.37318, -4.05141)
 
@@ -693,27 +853,23 @@ color = Color(0, 0.45098, 0.913725, 1)
 polygon = PackedVector2Array(-6.37318, -3.05141, -26, 30, -17, 23, -28, 48, -15, 36, -20, 52, -8, 43, -4, 52, 2, 43, 6, 54, 7, 44, 14, 51, 12, 41, 19, 51, 15, 35, 18, 36, 5.38626, -1.39873)
 
 [node name="ArmR" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
-position = Vector2(-32, -8)
-rotation = 1.0472
+position = Vector2(-18, -6)
 color = Color(0.8, 0.172549, 0.254902, 1)
 polygon = PackedVector2Array(-3, -1, 4, 25, 3, 1)
 
 [node name="ArmL" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 z_index = -1
-position = Vector2(-12, -12)
-rotation = 0.872665
+position = Vector2(15, -5)
 color = Color(0.52, 0.1144, 0.16848, 1)
 polygon = PackedVector2Array(2, -1, -3, 23, -2, 1)
 
 [node name="LegR" type="Polygon2D" parent="Parts"]
-position = Vector2(-16, 40)
-rotation = 1.0472
+position = Vector2(-8, 36)
 color = Color(0.0823529, 0, 0.129412, 1)
 polygon = PackedVector2Array(4, -6, -4, 0, 3, 32)
 
 [node name="LegL" type="Polygon2D" parent="Parts"]
-position = Vector2(8, 38)
-rotation = 1.0472
+position = Vector2(8, 36)
 color = Color(0.049, 0.007, 0.07, 1)
 polygon = PackedVector2Array(3, -5, -3, 0, 2, 32)
 
@@ -721,5 +877,5 @@ polygon = PackedVector2Array(3, -5, -3, 0, 2, 32)
 libraries = {
 "": SubResource("AnimationLibrary_10woe")
 }
-speed_scale = 4.0
-blend_times = [&"idle", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"run", 0.1, &"dash", &"idle", 0.1, &"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"run", 0.1, &"jump", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"run", 0.1, &"run", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"run", 0.1]
+speed_scale = 0.2
+blend_times = [&"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"run", 0.1, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"run", 0.1, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"run", 0.1, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"run", 0.1, &"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"run", 0.1, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1]

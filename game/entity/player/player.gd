@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var jump := -600.0
 @export var max_jumps := 1
 @export var max_dashes := 1
+@export var slide := 200
 
 @onready var model: Model = $PlayerModel
 
@@ -19,9 +20,6 @@ var dash_cooldown = false
 
 # physics_process
 func _physics_process(_delta: float) -> void:
-	direction = sign(velocity.x) if not is_equal_approx(velocity.x, 0) else direction
-	model.apply_direction(direction)
-	
 	move_and_slide()
 
 
