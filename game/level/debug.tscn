@@ -11,7 +11,8 @@ size = Vector2(1000, 100)
 position = Vector2(960, 400)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(958, 734)
+position = Vector2(960, 638)
+collision_layer = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -24,6 +25,7 @@ polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 position = Vector2(1508, 579)
 rotation = 1.5708
+collision_layer = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
@@ -35,6 +37,7 @@ polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(500, 1030)
+collision_layer = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]

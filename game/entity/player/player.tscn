@@ -15,6 +15,7 @@ radius = 20.0
 height = 136.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 3
 script = ExtResource("1_u23no")
 
 [node name="PlayerModel" parent="." instance=ExtResource("7_k4am0")]
@@ -75,6 +76,32 @@ one_shot = true
 [node name="SlideState" type="Node" parent="StateMachine"]
 script = ExtResource("9_g5ry0")
 state_id = "slide"
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="HandRaycastR" type="RayCast2D" parent="Raycasts"]
+position = Vector2(20, -145)
+target_position = Vector2(0.1, 0)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="FootRaycastR" type="RayCast2D" parent="Raycasts"]
+position = Vector2(20, -2)
+target_position = Vector2(0.1, 0)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="HandRaycastL" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-20, -145)
+target_position = Vector2(-0.1, 0)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="FootRaycastL" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-20, -2)
+target_position = Vector2(-0.1, 0)
+collision_mask = 2
+hit_from_inside = true
 
 [connection signal="timeout" from="StateMachine/JumpState/PostWallJumpMoveTimer" to="StateMachine/JumpState" method="_post_wall_jump_move_timeout"]
 [connection signal="timeout" from="StateMachine/FallState/JumpQueueTimer" to="StateMachine/FallState" method="_jump_queue_timeout"]

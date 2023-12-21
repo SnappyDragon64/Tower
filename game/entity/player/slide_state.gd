@@ -7,15 +7,14 @@ var jump_queued := false
 func _enter(message = {}) -> void:
 	player.jump_count = 0
 	player.dash_count = 0
-	player.direction *= -1
-	player.model.apply_direction(player.direction)
+	player.set_direction(-player.get_wall_direction())
 	player.velocity.y = player.slide
 	player.model.play_animation("slide")
 	jump_queued = message.get("jump_queued", false)
 
 
 func _state_physics_process(_delta: float) -> void:
-	var run_input = Input.get_axis("move_left", "move_right")
+	var run_input = sign(Input.get_axis("move_left", "move_right"))
 	player.velocity.x = run_input * player.speed
 	
 	if jump_queued and Input.is_action_pressed("jump") or player.can_jump() and Input.is_action_just_pressed("jump"):

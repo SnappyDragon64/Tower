@@ -17,14 +17,16 @@ func _enter(_message = {}) -> void:
 
 
 func _state_physics_process(delta: float) -> void:
-	var run_input = Input.get_axis("move_left", "move_right")
+	var run_input = sign(Input.get_axis("move_left", "move_right"))
 	
 	player.velocity -= player.gravity * player.get_up_direction() * delta
 	player.velocity.x = run_input * player.speed
-	player.direction = sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction
+	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
 	player.model.apply_direction(player.direction)
 	
-	if Input.is_action_just_pressed("jump"):
+	if jump_queued and player.can_jump():
+		transition_requested.emit("jump", {"wall": wall})
+	elif Input.is_action_just_pressed("jump"):
 		if coyote or player.can_jump():
 			player.jump_count -= 1 if coyote else 0 # Current fall state effectively did not happen, so replenish a jump
 			transition_requested.emit("jump", {"wall": wall})
@@ -39,7 +41,7 @@ func _state_physics_process(delta: float) -> void:
 			transition_requested.emit("idle", {"jump_queued": jump_queued})
 		else:
 			transition_requested.emit("run", {"jump_queued": jump_queued})
-	elif player.is_on_wall():
+	elif player.on_wall() and sign(run_input) == player.get_wall_direction():
 		transition_requested.emit("slide", {"jump_queued": jump_queued})
 
 

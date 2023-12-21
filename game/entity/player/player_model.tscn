@@ -667,7 +667,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [2.89027]
+"values": [3.03687]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -703,7 +703,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.15708]
+"values": [0.10472]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -751,7 +751,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.354302]
+"values": [0.3735]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -819,7 +819,8 @@ animation_player = NodePath("AnimationPlayer")
 position = Vector2(0, -68)
 
 [node name="LowerBody" type="Polygon2D" parent="Parts"]
-position = Vector2(0, 4)
+position = Vector2(6, 6)
+rotation = 0.10472
 color = Color(0.603922, 0.0666667, 0.278431, 1)
 polygon = PackedVector2Array(0, 20, -8.32813, 11.6719, -12, 8, -7.5, -1.5, 6.25, -1.5, 10, 8)
 
@@ -829,6 +830,7 @@ polygon = PackedVector2Array(-8.125, -0.25, -11, -26, 0, -30, 9, -24, 6.771, -0.
 
 [node name="Head" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 position = Vector2(0, -30)
+rotation = -0.0872665
 color = Color(1, 0.878431, 0.878431, 1)
 polygon = PackedVector2Array(0, -17, 5, -15, 4, -6, 0, -3, -4.8, -6, -6, -15)
 
@@ -853,23 +855,27 @@ color = Color(0, 0.45098, 0.913725, 1)
 polygon = PackedVector2Array(-6.37318, -3.05141, -26, 30, -17, 23, -28, 48, -15, 36, -20, 52, -8, 43, -4, 52, 2, 43, 6, 54, 7, 44, 14, 51, 12, 41, 19, 51, 15, 35, 18, 36, 5.38626, -1.39873)
 
 [node name="ArmR" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
-position = Vector2(-18, -6)
+position = Vector2(-22, -32)
+rotation = 3.03687
 color = Color(0.8, 0.172549, 0.254902, 1)
 polygon = PackedVector2Array(-3, -1, 4, 25, 3, 1)
 
 [node name="ArmL" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 z_index = -1
-position = Vector2(15, -5)
+position = Vector2(12, -4)
+rotation = 5.75959
 color = Color(0.52, 0.1144, 0.16848, 1)
 polygon = PackedVector2Array(2, -1, -3, 23, -2, 1)
 
 [node name="LegR" type="Polygon2D" parent="Parts"]
 position = Vector2(-8, 36)
+rotation = 0.3735
 color = Color(0.0823529, 0, 0.129412, 1)
 polygon = PackedVector2Array(4, -6, -4, 0, 3, 32)
 
 [node name="LegL" type="Polygon2D" parent="Parts"]
-position = Vector2(8, 36)
+position = Vector2(14, 38)
+rotation = 0.10472
 color = Color(0.049, 0.007, 0.07, 1)
 polygon = PackedVector2Array(3, -5, -3, 0, 2, 32)
 
@@ -877,5 +883,4 @@ polygon = PackedVector2Array(3, -5, -3, 0, 2, 32)
 libraries = {
 "": SubResource("AnimationLibrary_10woe")
 }
-speed_scale = 0.2
-blend_times = [&"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"run", 0.1, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"run", 0.1, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"run", 0.1, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"run", 0.1, &"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"run", 0.1, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1]
+blend_times = [&"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"run", 0.1, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"run", 0.1, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"run", 0.1, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"run", 0.1, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"run", 0.1]
