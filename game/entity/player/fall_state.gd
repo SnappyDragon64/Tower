@@ -41,7 +41,7 @@ func _state_physics_process(delta: float) -> void:
 			transition_requested.emit("idle", {"jump_queued": jump_queued})
 		else:
 			transition_requested.emit("run", {"jump_queued": jump_queued})
-	elif player.on_wall() and sign(run_input) == player.get_wall_direction():
+	elif player.on_wall() and sign(run_input) == player.get_wall_direction() and player.direction == player.get_wall_direction():
 		transition_requested.emit("slide", {"jump_queued": jump_queued})
 
 
