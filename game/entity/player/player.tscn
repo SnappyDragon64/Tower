@@ -42,7 +42,7 @@ script = ExtResource("4_qi5n4")
 state_id = "jump"
 
 [node name="PostWallJumpMoveTimer" type="Timer" parent="StateMachine/JumpState"]
-wait_time = 0.3
+wait_time = 0.25
 one_shot = true
 
 [node name="FallState" type="Node" parent="StateMachine"]

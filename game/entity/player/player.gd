@@ -2,13 +2,15 @@ class_name Player
 extends CharacterBody2D
 
 
+signal position_updated(pos: Vector2)
+
 @export var gravity := 1200.0
 @export var speed := 360.0
 @export var dash := 250.0
 @export var jump := -960.0
 @export var max_jumps := 1
 @export var max_dashes := 1
-@export var slide := 160
+@export var slide := 180
 
 @onready var model: Model = $PlayerModel
 @onready var hand_raycast_r: RayCast2D = $Raycasts/HandRaycastR
@@ -25,6 +27,7 @@ var dash_cooldown = false
 # physics_process
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
+	position_updated.emit(position)
 
 
 func can_jump() -> bool:

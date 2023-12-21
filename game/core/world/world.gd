@@ -4,9 +4,11 @@ extends Node2D
 
 
 @onready var player_preload = preload('res://game/entity/player/player.tscn')
+@onready var camera_preload = preload('res://game/entity/player/camera.tscn')
 
 
 var player: Player = null
+var camera: Camera = null
 var active_level: Node2D = null
 
 
@@ -32,11 +34,20 @@ func spawn(entity: Variant, spawn_at := Vector2()) -> void:
 # Spawns player at the specified spawnpoint
 func spawn_player(spawnpoint := 0) -> void:
 	player = player_preload.instantiate()
+	camera = camera_preload.instantiate()
 	var pos = Vector2()
+	var cam_pos = Vector2()
 	
 	var spawnpoints = active_level.get_node_or_null("Spawnpoints")
 	if spawnpoints != null and spawnpoint >= 0 and spawnpoint < spawnpoints.get_child_count():
 		var spawnpoint_node = spawnpoints.get_child(spawnpoint)
 		pos = spawnpoint_node.get_global_transform().get_origin()
+		
+		var camera_spawnpoint = spawnpoint_node.get_node_or_null("Camera")
+		if camera_spawnpoint != null:
+			cam_pos = camera_spawnpoint.get_global_transform().get_origin()
+		else:
+			cam_pos = pos
 	
 	spawn(player, pos)
+	spawn(camera, cam_pos)
