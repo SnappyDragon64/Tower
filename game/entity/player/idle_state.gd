@@ -6,13 +6,15 @@ var jump_queued := false
 
 func _enter(message = {}) -> void:
 	player.jump_count = 0
-	player.dash_count = 0
+	player.update_dash_cooldown(false)
 	player.model.play_animation("idle")
 	jump_queued = message.get("jump_queued", false)
 
 
 func _state_physics_process(_delta: float) -> void:
-	if jump_queued and Input.is_action_pressed("jump"):
+	if Input.is_action_just_pressed("attack"):
+		transition_requested.emit("attack")
+	elif jump_queued and Input.is_action_pressed("jump"):
 		transition_requested.emit("jump")
 	elif not player.is_on_floor():
 		transition_requested.emit("fall")

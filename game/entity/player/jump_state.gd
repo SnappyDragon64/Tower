@@ -26,7 +26,9 @@ func _state_physics_process(delta: float) -> void:
 	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
 	player.model.apply_direction(player.direction)
 	
-	if player.velocity.y >= 0.0 or Input.is_action_just_released("jump"):
+	if Input.is_action_just_pressed("attack"):
+		transition_requested.emit("attack")
+	elif player.velocity.y >= 0.0 or Input.is_action_just_released("jump"):
 		transition_requested.emit("fall")
 	elif player.can_dash() and Input.is_action_just_pressed("dash"):
 		transition_requested.emit("dash")

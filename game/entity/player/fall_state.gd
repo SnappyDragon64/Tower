@@ -24,7 +24,9 @@ func _state_physics_process(delta: float) -> void:
 	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
 	player.model.apply_direction(player.direction)
 	
-	if jump_queued and player.can_jump():
+	if Input.is_action_just_pressed("attack"):
+		transition_requested.emit("attack")
+	elif jump_queued and player.can_jump():
 		transition_requested.emit("jump", {"wall": wall})
 	elif Input.is_action_just_pressed("jump"):
 		if coyote or player.can_jump():

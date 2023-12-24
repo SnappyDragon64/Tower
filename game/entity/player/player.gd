@@ -17,10 +17,10 @@ signal position_updated(pos: Vector2)
 @onready var foot_raycast_r: RayCast2D = $Raycasts/FootRaycastR
 @onready var hand_raycast_l: RayCast2D = $Raycasts/HandRaycastL
 @onready var foot_raycast_l: RayCast2D = $Raycasts/FootRaycastL
+@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 
 var direction := 1
 var jump_count = 0
-var dash_count = 0
 var dash_cooldown = false
 
 
@@ -35,7 +35,7 @@ func can_jump() -> bool:
 
 
 func can_dash() -> bool:
-	return not dash_cooldown and dash_count < max_dashes
+	return not dash_cooldown
 
 
 func set_direction(dir: int) -> void:
@@ -49,3 +49,12 @@ func on_wall() -> bool:
 
 func get_wall_direction() -> int:
 	return 1 if hand_raycast_r.is_colliding() and foot_raycast_r.is_colliding() else -1 if hand_raycast_l.is_colliding() and foot_raycast_l.is_colliding() else 0
+
+
+func update_dash_cooldown(flag: bool) -> void:
+	dash_cooldown = flag
+	dash_cooldown_timer.start() if flag else dash_cooldown_timer.stop()
+
+
+func _dash_cooldown_timeout() -> void:
+	dash_cooldown = false

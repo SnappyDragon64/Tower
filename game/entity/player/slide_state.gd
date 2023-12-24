@@ -6,7 +6,7 @@ var jump_queued := false
 
 func _enter(message = {}) -> void:
 	player.jump_count = 0
-	player.dash_count = 0
+	player.update_dash_cooldown(false)
 	player.set_direction(-player.get_wall_direction())
 	player.velocity.y = player.slide
 	player.model.play_animation("slide")

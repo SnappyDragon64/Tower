@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdcov0ancsa1y"]
+[gd_scene load_steps=12 format=3 uid="uid://cdcov0ancsa1y"]
 
 [ext_resource type="Script" path="res://game/entity/player/player.gd" id="1_u23no"]
 [ext_resource type="Script" path="res://game/entity/state_machine/state_machine.gd" id="1_vcpkk"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://caioeub6pwumj" path="res://game/entity/player/player_model.tscn" id="7_k4am0"]
 [ext_resource type="Script" path="res://game/entity/player/dash_state.gd" id="8_0do5e"]
 [ext_resource type="Script" path="res://game/entity/player/slide_state.gd" id="9_g5ry0"]
+[ext_resource type="Script" path="res://game/entity/player/attack_state.gd" id="10_qwa6m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfoky"]
 radius = 20.0
@@ -68,14 +69,18 @@ process_callback = 0
 wait_time = 0.2
 one_shot = true
 
-[node name="CooldownTimer" type="Timer" parent="StateMachine/DashState"]
-process_callback = 0
-wait_time = 0.4
-one_shot = true
-
 [node name="SlideState" type="Node" parent="StateMachine"]
 script = ExtResource("9_g5ry0")
 state_id = "slide"
+
+[node name="AttackState" type="Node" parent="StateMachine"]
+script = ExtResource("10_qwa6m")
+state_id = "attack"
+
+[node name="AttackTimer" type="Timer" parent="StateMachine/AttackState"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
 
 [node name="Raycasts" type="Node2D" parent="."]
 
@@ -103,8 +108,16 @@ target_position = Vector2(-0.1, 0)
 collision_mask = 2
 hit_from_inside = true
 
+[node name="Timers" type="Node" parent="."]
+
+[node name="DashCooldownTimer" type="Timer" parent="Timers"]
+process_callback = 0
+wait_time = 0.4
+one_shot = true
+
 [connection signal="timeout" from="StateMachine/JumpState/PostWallJumpMoveTimer" to="StateMachine/JumpState" method="_post_wall_jump_move_timeout"]
 [connection signal="timeout" from="StateMachine/FallState/JumpQueueTimer" to="StateMachine/FallState" method="_jump_queue_timeout"]
 [connection signal="timeout" from="StateMachine/FallState/CoyoteTimer" to="StateMachine/FallState" method="_coyote_timeout"]
 [connection signal="timeout" from="StateMachine/DashState/DashTimer" to="StateMachine/DashState" method="_dash_timeout"]
-[connection signal="timeout" from="StateMachine/DashState/CooldownTimer" to="StateMachine/DashState" method="_cooldown_timeout"]
+[connection signal="timeout" from="StateMachine/AttackState/AttackTimer" to="StateMachine/AttackState" method="_attack_timeout"]
+[connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_dash_cooldown_timeout"]
