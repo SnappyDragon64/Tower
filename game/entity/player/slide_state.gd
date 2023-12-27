@@ -9,7 +9,7 @@ func _enter(message = {}) -> void:
 	player.update_dash_cooldown(false)
 	player.set_direction(-player.get_wall_direction())
 	player.velocity.y = player.slide
-	player.model.play_animation("slide")
+	player.play_animation("slide")
 	jump_queued = message.get("jump_queued", false)
 
 

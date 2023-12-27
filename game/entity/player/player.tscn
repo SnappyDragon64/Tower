@@ -1,19 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdcov0ancsa1y"]
+[gd_scene load_steps=14 format=3 uid="uid://cdcov0ancsa1y"]
 
 [ext_resource type="Script" path="res://game/entity/player/player.gd" id="1_u23no"]
 [ext_resource type="Script" path="res://game/entity/state_machine/state_machine.gd" id="1_vcpkk"]
 [ext_resource type="Script" path="res://game/entity/player/run_state.gd" id="2_k78y2"]
+[ext_resource type="Script" path="res://game/entity/component/health_component.gd" id="3_egs40"]
 [ext_resource type="Script" path="res://game/entity/player/idle_state.gd" id="3_y24cg"]
 [ext_resource type="Script" path="res://game/entity/player/jump_state.gd" id="4_qi5n4"]
 [ext_resource type="Script" path="res://game/entity/player/fall_state.gd" id="5_ilmt4"]
 [ext_resource type="PackedScene" uid="uid://caioeub6pwumj" path="res://game/entity/player/player_model.tscn" id="7_k4am0"]
 [ext_resource type="Script" path="res://game/entity/player/dash_state.gd" id="8_0do5e"]
 [ext_resource type="Script" path="res://game/entity/player/slide_state.gd" id="9_g5ry0"]
-[ext_resource type="Script" path="res://game/entity/player/attack_state.gd" id="10_qwa6m"]
+[ext_resource type="Script" path="res://game/entity/player/attack_controller.gd" id="10_30sbt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfoky"]
 radius = 20.0
 height = 136.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ht55"]
+radius = 60.0
+height = 160.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 3
@@ -26,60 +31,74 @@ scale = Vector2(1.2, 1.2)
 position = Vector2(0, -68)
 shape = SubResource("CapsuleShape2D_tfoky")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_egs40")
+health = 40
+
+[node name="MovementController" type="Node" parent="."]
 script = ExtResource("1_vcpkk")
 initial_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateMachine"]
+[node name="IdleState" type="Node" parent="MovementController"]
 script = ExtResource("3_y24cg")
+animation = "idle"
 state_id = "idle"
 
-[node name="RunState" type="Node" parent="StateMachine"]
+[node name="RunState" type="Node" parent="MovementController"]
 script = ExtResource("2_k78y2")
+animation = "run"
 state_id = "run"
 
-[node name="JumpState" type="Node" parent="StateMachine"]
+[node name="JumpState" type="Node" parent="MovementController"]
 script = ExtResource("4_qi5n4")
+animation = "jump"
 state_id = "jump"
 
-[node name="PostWallJumpMoveTimer" type="Timer" parent="StateMachine/JumpState"]
+[node name="PostWallJumpMoveTimer" type="Timer" parent="MovementController/JumpState"]
 wait_time = 0.25
 one_shot = true
 
-[node name="FallState" type="Node" parent="StateMachine"]
+[node name="FallState" type="Node" parent="MovementController"]
 script = ExtResource("5_ilmt4")
+animation = "jump"
 state_id = "fall"
 
-[node name="JumpQueueTimer" type="Timer" parent="StateMachine/FallState"]
+[node name="JumpQueueTimer" type="Timer" parent="MovementController/FallState"]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="MovementController/FallState"]
 process_callback = 0
 wait_time = 0.25
 one_shot = true
 
-[node name="CoyoteTimer" type="Timer" parent="StateMachine/FallState"]
-process_callback = 0
-wait_time = 0.25
-one_shot = true
-
-[node name="DashState" type="Node" parent="StateMachine"]
+[node name="DashState" type="Node" parent="MovementController"]
 script = ExtResource("8_0do5e")
+animation = "dash"
 state_id = "dash"
 
-[node name="DashTimer" type="Timer" parent="StateMachine/DashState"]
+[node name="DashTimer" type="Timer" parent="MovementController/DashState"]
 process_callback = 0
 wait_time = 0.2
 one_shot = true
 
-[node name="SlideState" type="Node" parent="StateMachine"]
+[node name="SlideState" type="Node" parent="MovementController"]
 script = ExtResource("9_g5ry0")
+animation = "dash"
 state_id = "slide"
 
-[node name="AttackState" type="Node" parent="StateMachine"]
-script = ExtResource("10_qwa6m")
-state_id = "attack"
+[node name="AttackController" type="Node" parent="."]
+script = ExtResource("10_30sbt")
 
-[node name="AttackTimer" type="Timer" parent="StateMachine/AttackState"]
+[node name="AttackTimer" type="Timer" parent="AttackController"]
 process_callback = 0
 wait_time = 0.2
+one_shot = true
+
+[node name="AttackCooldown" type="Timer" parent="AttackController"]
+process_callback = 0
+wait_time = 0.4
 one_shot = true
 
 [node name="Raycasts" type="Node2D" parent="."]
@@ -108,6 +127,17 @@ target_position = Vector2(-0.1, 0)
 collision_mask = 2
 hit_from_inside = true
 
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="AttackArea" type="Area2D" parent="Areas"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="Hitbox" type="CollisionShape2D" parent="Areas/AttackArea"]
+position = Vector2(110, -60)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_8ht55")
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="DashCooldownTimer" type="Timer" parent="Timers"]
@@ -115,9 +145,11 @@ process_callback = 0
 wait_time = 0.4
 one_shot = true
 
-[connection signal="timeout" from="StateMachine/JumpState/PostWallJumpMoveTimer" to="StateMachine/JumpState" method="_post_wall_jump_move_timeout"]
-[connection signal="timeout" from="StateMachine/FallState/JumpQueueTimer" to="StateMachine/FallState" method="_jump_queue_timeout"]
-[connection signal="timeout" from="StateMachine/FallState/CoyoteTimer" to="StateMachine/FallState" method="_coyote_timeout"]
-[connection signal="timeout" from="StateMachine/DashState/DashTimer" to="StateMachine/DashState" method="_dash_timeout"]
-[connection signal="timeout" from="StateMachine/AttackState/AttackTimer" to="StateMachine/AttackState" method="_attack_timeout"]
+[connection signal="timeout" from="MovementController/JumpState/PostWallJumpMoveTimer" to="MovementController/JumpState" method="_post_wall_jump_move_timeout"]
+[connection signal="timeout" from="MovementController/FallState/JumpQueueTimer" to="MovementController/FallState" method="_jump_queue_timeout"]
+[connection signal="timeout" from="MovementController/FallState/CoyoteTimer" to="MovementController/FallState" method="_coyote_timeout"]
+[connection signal="timeout" from="MovementController/DashState/DashTimer" to="MovementController/DashState" method="_dash_timeout"]
+[connection signal="timeout" from="AttackController/AttackTimer" to="AttackController" method="_attack_timeout"]
+[connection signal="timeout" from="AttackController/AttackCooldown" to="AttackController" method="_attack_cooldown_timeout"]
+[connection signal="body_entered" from="Areas/AttackArea" to="AttackController" method="_on_attack_area_body_entered"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_dash_cooldown_timeout"]

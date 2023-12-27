@@ -6,7 +6,7 @@ var post_wall_jump_move := false
 
 
 func _enter(message := {}) -> void:
-	player.model.play_animation("jump")
+	player.play_animation("jump")
 	wall = message.get("wall", false)
 	
 	if wall:
@@ -24,11 +24,8 @@ func _state_physics_process(delta: float) -> void:
 	if !wall or post_wall_jump_move and not is_zero_approx(run_input):
 		player.velocity.x = run_input * player.speed
 	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
-	player.model.apply_direction(player.direction)
-	
-	if Input.is_action_just_pressed("attack"):
-		transition_requested.emit("attack")
-	elif player.velocity.y >= 0.0 or Input.is_action_just_released("jump"):
+
+	if player.velocity.y >= 0.0 or Input.is_action_just_released("jump"):
 		transition_requested.emit("fall")
 	elif player.can_dash() and Input.is_action_just_pressed("dash"):
 		transition_requested.emit("dash")

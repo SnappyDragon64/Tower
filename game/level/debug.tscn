@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://tblntbsle5co"]
+[gd_scene load_steps=3 format=3 uid="uid://tblntbsle5co"]
+
+[ext_resource type="PackedScene" uid="uid://cb0lx7tbhrucv" path="res://game/entity/enemy/mite/mite.tscn" id="1_ov2kg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3tt3v"]
 size = Vector2(1000, 100)
@@ -13,6 +15,7 @@ position = Vector2(960, 400)
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(960, 638)
 collision_layer = 2
+collision_mask = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -26,6 +29,7 @@ polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
 position = Vector2(1508, 579)
 rotation = 1.5708
 collision_layer = 2
+collision_mask = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
@@ -38,6 +42,7 @@ polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(500, 1030)
 collision_layer = 2
+collision_mask = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
@@ -46,3 +51,30 @@ shape = SubResource("RectangleShape2D_3tt3v")
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D2"]
 color = Color(0.0588235, 0.0627451, 0.129412, 1)
 polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
+
+[node name="Mite" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(1159, 588)
+
+[node name="Mite2" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(1331, 588)
+
+[node name="Mite3" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(129, 980)
+
+[node name="Mite4" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(365, 980)
+
+[node name="Mite5" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(598, 980)
+
+[node name="Mite6" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(847, 980)
+
+[node name="Mite7" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(536, 588)
+
+[node name="Mite8" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(631, 588)
+
+[node name="Mite9" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(727, 588)

@@ -13,7 +13,7 @@ func _enter(_message = {}) -> void:
 		$CoyoteTimer.start()
 	
 	player.jump_count += 1
-	player.model.play_animation("jump")
+	player.play_animation("jump")
 
 
 func _state_physics_process(delta: float) -> void:
@@ -22,11 +22,8 @@ func _state_physics_process(delta: float) -> void:
 	player.velocity -= player.gravity * player.get_up_direction() * delta
 	player.velocity.x = run_input * player.speed
 	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
-	player.model.apply_direction(player.direction)
-	
-	if Input.is_action_just_pressed("attack"):
-		transition_requested.emit("attack")
-	elif jump_queued and player.can_jump():
+
+	if jump_queued and player.can_jump():
 		transition_requested.emit("jump", {"wall": wall})
 	elif Input.is_action_just_pressed("jump"):
 		if coyote or player.can_jump():
@@ -43,7 +40,7 @@ func _state_physics_process(delta: float) -> void:
 			transition_requested.emit("idle", {"jump_queued": jump_queued})
 		else:
 			transition_requested.emit("run", {"jump_queued": jump_queued})
-	elif player.on_wall() and sign(run_input) == player.get_wall_direction() and player.direction == player.get_wall_direction():
+	elif not player.attacking and player.on_wall() and sign(run_input) == player.get_wall_direction() and player.direction == player.get_wall_direction():
 		transition_requested.emit("slide", {"jump_queued": jump_queued})
 
 
@@ -56,8 +53,6 @@ func _coyote_timeout() -> void:
 
 
 func _exit() -> void:
-	player.velocity.x = 0.0
-	
 	$JumpQueueTimer.stop()
 	$CoyoteTimer.stop()
 	jump_queued = false

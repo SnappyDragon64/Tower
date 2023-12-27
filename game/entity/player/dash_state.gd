@@ -5,14 +5,15 @@ var jump_queued := false
 
 
 func _enter(_message = {}) -> void:
-	player.model.play_animation("dash")
+	player.play_animation("dash")
 	$DashTimer.start()
+	player.can_attack = false
 
 
 func _state_physics_process(_delta: float) -> void:
 	player.velocity.x += player.dash * player.direction
 	
-	if Input.is_action_just_pressed("jump") and $DashTimer.get_time_left() < 0.1:
+	if Input.is_action_just_pressed("jump") and $DashTimer.get_time_left() <= 0.1:
 		jump_queued = true
 
 
@@ -30,3 +31,4 @@ func _exit() -> void:
 	jump_queued = false
 	player.velocity.x = 0.0
 	player.update_dash_cooldown(true)
+	player.can_attack = true

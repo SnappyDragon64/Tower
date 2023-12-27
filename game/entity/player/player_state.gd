@@ -2,6 +2,8 @@ class_name PlayerState
 extends State
 
 
+@export var animation: String
+
 var player: Player
 
 

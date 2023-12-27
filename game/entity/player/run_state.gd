@@ -7,7 +7,7 @@ var jump_queued := false
 func _enter(message = {}) -> void:
 	player.jump_count = 0
 	player.update_dash_cooldown(false)
-	player.model.play_animation("run")
+	player.play_animation("run")
 	jump_queued = message.get("jump_queued", false)
 
 
@@ -17,9 +17,7 @@ func _state_physics_process(_delta: float) -> void:
 	player.velocity.x = run_input * player.speed
 	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
 
-	if Input.is_action_just_pressed("attack"):
-		transition_requested.emit("attack")
-	elif jump_queued and Input.is_action_pressed("jump"):
+	if jump_queued and Input.is_action_pressed("jump"):
 		transition_requested.emit("jump")
 	elif not player.is_on_floor():
 		transition_requested.emit("fall")
@@ -29,6 +27,3 @@ func _state_physics_process(_delta: float) -> void:
 		transition_requested.emit("jump")
 	elif player.can_dash() and Input.is_action_just_pressed("dash"):
 		transition_requested.emit("dash")
-
-func _exit() -> void:
-	player.velocity.x = 0.0

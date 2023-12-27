@@ -17,7 +17,6 @@ config/icon="res://asset/icon.svg"
 
 [autoload]
 
-Menus="*res://game/menu/menus.gd"
 SaveData="*res://game/core/save/save_data.gd"
 SaveLoader="*res://game/core/save/save_loader.gd"
 SaveMetadata="*res://game/core/save/save_metadata.gd"
@@ -69,6 +68,11 @@ attack={
 
 2d_physics/layer_1="player"
 2d_physics/layer_2="terrain"
+2d_physics/layer_3="enemy"
+
+[physics]
+
+2d/default_gravity=1200.0
 
 [rendering]
 
