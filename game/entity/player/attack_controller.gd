@@ -53,12 +53,21 @@ func _attack_cooldown_timeout() -> void:
 	player.can_attack = true
 
 
-func _on_attack_area_body_entered(body: Node2D) -> void:
+# When objects with physics collision are hit (i.e. terrain or props)
+func _on_attack_area_body_entered(_body: Node2D) -> void:
+	_apply_recoil()
+
+
+# When enemies are hit
+func _on_attack_area_area_entered(area: Area2D):
+	_apply_recoil()
+	
+	if area is HealthComponent:
+		area.hurt(damage)
+
+
+# Checking recoil_flag prevents recoil from being applied more than once
+func _apply_recoil() -> void:
 	if not recoil_flag:
 		player.velocity.x = -player.direction * recoil
 		recoil_flag = true
-	
-	if body.is_in_group("enemy"):
-		var health_component: HealthComponent = body.find_children("*", "HealthComponent").front()
-		if is_instance_valid(health_component):
-			health_component.hurt(damage)

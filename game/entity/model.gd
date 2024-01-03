@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 # Flip the model according to the movement
-func apply_direction(direction: float) -> void:
+func apply_direction(direction: Constants.DIRECTION) -> void:
 	scale.x = initial_scale.x * direction
 
 

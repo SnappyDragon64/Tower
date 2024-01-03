@@ -32,12 +32,12 @@ func load_level(level: String, spawnpoint := 0) -> void:
 
 
 # Reloads the current level
-func reload_level():
+func reload_level() -> void:
 	_load_current_level()
 
 
 # Loads the current level
-func _load_current_level():
+func _load_current_level() -> void:
 	_world._load_level(_current_level)
 	spawn_player()
 
@@ -50,3 +50,15 @@ func update_spawnpoint(spawnpoint: int) -> void:
 # Spawns the player at the specified spawnpoint
 func spawn_player(spawnpoint := _current_spawnpoint) -> void:
 	_world.spawn_player(spawnpoint)
+
+
+# Repawns the player at the specified spawnpoint
+func respawn_player(spawnpoint := _current_spawnpoint) -> void:
+	var player = _world.spawn_player(spawnpoint)
+	await player.ready
+	player.start_invincibility()
+
+
+# Spawns an entity at the specified position
+func spawn(entity: Variant, spawn_at := Vector2()) -> void:
+	_world.spawn(entity, spawn_at)

@@ -7,9 +7,9 @@ extends Node2D
 @onready var camera_preload = preload('res://game/entity/player/camera.tscn')
 
 
-var player: Player = null
-var camera: Camera = null
-var active_level: Node2D = null
+var player: Player
+var camera: Camera
+var active_level: Node2D
 
 
 # Loads level from the PackedScene
@@ -21,18 +21,20 @@ func _load_level(level: PackedScene) -> void:
 		inactive_level.queue_free()
 	
 	active_level = level.instantiate()
-	$LevelHolder.add_child(active_level)
+	$LevelHolder.call_deferred("add_child", active_level)
 	await active_level.ready
 
 
 # Spawns an entity at the specified position
 func spawn(entity: Variant, spawn_at := Vector2()) -> void:
 	entity.set_position(spawn_at)
-	$SpawnedEntities.add_child(entity)
+	$SpawnedEntities.call_deferred("add_child", entity)
 
 
 # Spawns player at the specified spawnpoint
-func spawn_player(spawnpoint := 0) -> void:
+func spawn_player(spawnpoint := 0) -> Player:
+	_purge()
+	
 	player = player_preload.instantiate()
 	camera = camera_preload.instantiate()
 	var pos = Vector2()
@@ -51,3 +53,13 @@ func spawn_player(spawnpoint := 0) -> void:
 	
 	spawn(player, pos)
 	spawn(camera, cam_pos)
+	
+	return player
+
+
+func _purge() -> void:
+	if is_instance_valid(player):
+		player.queue_free()
+	if is_instance_valid(camera):
+		camera.queue_free()
+	

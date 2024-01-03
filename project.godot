@@ -21,11 +21,15 @@ SaveData="*res://game/core/save/save_data.gd"
 SaveLoader="*res://game/core/save/save_loader.gd"
 SaveMetadata="*res://game/core/save/save_metadata.gd"
 WorldManager="*res://game/core/world/world_manager.gd"
+UIManager="*res://game/core/ui/ui_manager.gd"
+Constants="*res://game/core/util/constants.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [input]
 

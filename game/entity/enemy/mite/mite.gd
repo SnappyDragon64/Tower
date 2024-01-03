@@ -21,9 +21,9 @@ func _physics_process(delta):
 		rotation -= delta * 4
 		acc += delta * 4
 
-		if acc > PI / 2:
+		if acc > Constants.HALF_PI:
 			rotate_down = false
-			rotation = round(rotation / PI * 2.0) * PI / 2.0
+			rotation = round(rotation / Constants.HALF_PI) * Constants.HALF_PI
 			$Model.animation_player.play("crawl")
 			
 		set_up_direction(Vector2.UP.rotated(rotation))
@@ -32,9 +32,9 @@ func _physics_process(delta):
 		rotation += delta * 4
 		acc += delta * 4
 		
-		if acc > PI / 2:
+		if acc > Constants.HALF_PI:
 			rotate_up = false
-			rotation = round(rotation / PI * 2.0) * PI / 2.0
+			rotation = round(rotation / Constants.HALF_PI) * Constants.HALF_PI
 			$Model.animation_player.play("crawl")
 		
 		set_up_direction(Vector2.UP.rotated(rotation))

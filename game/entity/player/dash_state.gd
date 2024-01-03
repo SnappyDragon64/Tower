@@ -4,10 +4,16 @@ extends PlayerState
 var jump_queued := false
 
 
+func _ready() -> void:
+	await super._ready()
+	player.health_component.on_hurt.connect(_on_hurt)
+
+
 func _enter(_message = {}) -> void:
+	player.velocity.y = 0.0
+	player.can_attack = false
 	player.play_animation("dash")
 	$DashTimer.start()
-	player.can_attack = false
 
 
 func _state_physics_process(_delta: float) -> void:
@@ -18,6 +24,10 @@ func _state_physics_process(_delta: float) -> void:
 
 
 func _dash_timeout() -> void:
+	_on_dash_end()
+
+
+func _on_dash_end() -> void:
 	if player.is_on_floor():
 		if is_zero_approx(Input.get_axis("move_left", "move_right")):
 			transition_requested.emit("idle", {"jump_queued": jump_queued})
@@ -32,3 +42,8 @@ func _exit() -> void:
 	player.velocity.x = 0.0
 	player.update_dash_cooldown(true)
 	player.can_attack = true
+
+
+func _on_hurt(_health, _max_health):
+	$DashTimer.stop()
+	_on_dash_end()

@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var TITLE_MENU: PackedScene = preload("res://game/menu/title_menu.tscn")
+@onready var TITLE_MENU: PackedScene = preload("res://game/ui/menu/title_menu.tscn")
 
 
 # Inital settngs

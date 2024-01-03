@@ -1,7 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://caioeub6pwumj"]
+[gd_scene load_steps=13 format=3 uid="uid://caioeub6pwumj"]
 
 [ext_resource type="Script" path="res://game/entity/model.gd" id="1_1m0hn"]
+[ext_resource type="Shader" path="res://asset/shader/glitch.gdshader" id="2_8dmoa"]
 [ext_resource type="Texture2D" uid="uid://rca38ld4umcy" path="res://asset/sprite/effect/kick_slash.png" id="3_4v3ri"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4hl0"]
+shader = ExtResource("2_8dmoa")
+shader_parameter/shake_power = 0.05
+shader_parameter/shake_rate = 1.0
+shader_parameter/shake_speed = 4.0
+shader_parameter/shake_block_size = 32.0
+shader_parameter/shake_color_rate = 0.01
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_677v2"]
 
 [sub_resource type="Animation" id="Animation_o4w1n"]
 resource_name = "attack"
@@ -1132,9 +1143,17 @@ modulate = Color(1, 1, 1, 0)
 position = Vector2(54, -54)
 texture = ExtResource("3_4v3ri")
 
+[node name="Glitch" type="Sprite2D" parent="Effects"]
+visible = false
+z_index = 3
+material = SubResource("ShaderMaterial_g4hl0")
+position = Vector2(0, -64)
+scale = Vector2(128, 128)
+texture = SubResource("CanvasTexture_677v2")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_10woe")
 }
 speed_scale = 2.0
-blend_times = [&"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"attack", 0.02, &"slide", &"run", 0.1, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"attack", 0.02, &"idle", &"run", 0.1, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"attack", 0.02, &"dash", &"run", 0.1, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"attack", 0.02, &"jump", &"run", 0.1, &"attack", &"slide", 0.1, &"attack", &"idle", 0.1, &"attack", &"dash", 0.1, &"attack", &"jump", 0.1, &"attack", &"attack", 0.1, &"attack", &"run", 0.1, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"attack", 0.02, &"run", &"run", 0.1]
+blend_times = [&"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"run", 0.1, &"slide", &"attack", 0.02, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"run", 0.1, &"idle", &"attack", 0.02, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"run", 0.1, &"dash", &"attack", 0.02, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"run", 0.1, &"jump", &"attack", 0.02, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"run", 0.1, &"run", &"attack", 0.02, &"attack", &"slide", 0.1, &"attack", &"idle", 0.1, &"attack", &"dash", 0.1, &"attack", &"jump", 0.1, &"attack", &"run", 0.1, &"attack", &"attack", 0.1]

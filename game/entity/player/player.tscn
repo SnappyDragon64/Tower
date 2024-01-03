@@ -20,7 +20,8 @@ height = 136.0
 radius = 60.0
 height = 160.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 10
 collision_mask = 3
 script = ExtResource("1_u23no")
 
@@ -31,9 +32,14 @@ scale = Vector2(1.2, 1.2)
 position = Vector2(0, -68)
 shape = SubResource("CapsuleShape2D_tfoky")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Area2D" parent="."]
+collision_mask = 0
 script = ExtResource("3_egs40")
-health = 40
+max_health = 40.0
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent"]
+position = Vector2(0, -68)
+shape = SubResource("CapsuleShape2D_tfoky")
 
 [node name="MovementController" type="Node" parent="."]
 script = ExtResource("1_vcpkk")
@@ -132,6 +138,7 @@ hit_from_inside = true
 [node name="AttackArea" type="Area2D" parent="Areas"]
 collision_layer = 0
 collision_mask = 6
+monitoring = false
 
 [node name="Hitbox" type="CollisionShape2D" parent="Areas/AttackArea"]
 position = Vector2(110, -60)
@@ -145,11 +152,20 @@ process_callback = 0
 wait_time = 0.4
 one_shot = true
 
+[node name="GlitchTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+
+[node name="InvincibilityTimer" type="Timer" parent="Timers"]
+wait_time = 1.2
+
 [connection signal="timeout" from="MovementController/JumpState/PostWallJumpMoveTimer" to="MovementController/JumpState" method="_post_wall_jump_move_timeout"]
 [connection signal="timeout" from="MovementController/FallState/JumpQueueTimer" to="MovementController/FallState" method="_jump_queue_timeout"]
 [connection signal="timeout" from="MovementController/FallState/CoyoteTimer" to="MovementController/FallState" method="_coyote_timeout"]
 [connection signal="timeout" from="MovementController/DashState/DashTimer" to="MovementController/DashState" method="_dash_timeout"]
 [connection signal="timeout" from="AttackController/AttackTimer" to="AttackController" method="_attack_timeout"]
 [connection signal="timeout" from="AttackController/AttackCooldown" to="AttackController" method="_attack_cooldown_timeout"]
+[connection signal="area_entered" from="Areas/AttackArea" to="AttackController" method="_on_attack_area_area_entered"]
 [connection signal="body_entered" from="Areas/AttackArea" to="AttackController" method="_on_attack_area_body_entered"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/GlitchTimer" to="." method="_on_glitch_timer_timeout"]
+[connection signal="timeout" from="Timers/InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

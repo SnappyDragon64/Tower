@@ -38,7 +38,7 @@ func set_target(target_position: Vector2, disable_player_tracking := true) -> vo
 	update_flag = true
 
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if update_flag:
 		var origin_clamped = _get_adjusted_tracking_pos()
 		var transform_clamped = Transform2D(0, origin_clamped)
