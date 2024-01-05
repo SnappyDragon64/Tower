@@ -19,9 +19,9 @@ func _enter(_message = {}) -> void:
 func _state_physics_process(delta: float) -> void:
 	var run_input = sign(Input.get_axis("move_left", "move_right"))
 	
-	player.velocity -= player.gravity * player.get_up_direction() * delta
+	player.velocity -= Constants.GRAVITY * player.get_up_direction() * delta
 	player.velocity.x = run_input * player.speed
-	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
+	player.set_direction(sign(player.velocity.x))
 
 	if jump_queued and player.can_jump():
 		transition_requested.emit("jump", {"wall": wall})
@@ -40,7 +40,7 @@ func _state_physics_process(delta: float) -> void:
 			transition_requested.emit("idle", {"jump_queued": jump_queued})
 		else:
 			transition_requested.emit("run", {"jump_queued": jump_queued})
-	elif not player.attacking and player.on_wall() and sign(run_input) == player.get_wall_direction() and player.direction == player.get_wall_direction():
+	elif not player.attacking and player.on_wall() and sign(run_input) == player.get_wall_direction() and player.get_direction() == player.get_wall_direction():
 		transition_requested.emit("slide", {"jump_queued": jump_queued})
 
 

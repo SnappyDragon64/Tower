@@ -4,13 +4,12 @@ extends DirectionalCharacterBody2D
 
 signal position_updated(pos: Vector2)
 
-@export var gravity := 1200.0
 @export var speed := 360.0
 @export var dash := 250.0
-@export var jump := -960.0
+@export var jump := -1200.0
 @export var max_jumps := 1
 @export var slide := 180.0
-@export var terminal_velicity := 6000.0
+@export var terminal_velocity := 10000.0
 
 @onready var model: Model = $PlayerModel
 @onready var health_component: HealthComponent = $HealthComponent
@@ -32,18 +31,13 @@ var attacking := false
 var animation_locked := false
 
 
-func _ready():
+func _ready() -> void:
 	super._ready()
-	
-	health_component.on_hurt.connect(_on_hurt)
-	health_component.on_death.connect(_on_death)
-
 	update_hp_bar(health_component.health, health_component.max_health, true)
 
 
-# physics_process
 func _physics_process(_delta: float) -> void:
-	velocity.y = min(terminal_velicity, velocity.y)
+	velocity.y = min(terminal_velocity, velocity.y)
 	move_and_slide()
 	position_updated.emit(position)
 
@@ -56,10 +50,10 @@ func can_dash() -> bool:
 	return not attacking and not dash_cooldown
 
 
-func set_direction(dir: Constants.DIRECTION) -> void:
+func set_direction(dir: Constants.X_DIRECTION) -> void:
 	super.set_direction(dir)
-	model.apply_direction(dir)
-	attack_area.set_scale(Vector2(dir, 1))
+	model.apply_direction(get_direction())
+	attack_area.set_scale(Vector2(get_direction(), 1))
 
 
 func on_wall() -> bool:
@@ -94,20 +88,20 @@ func _on_hurt(health, max_health) -> void:
 	start_glitch()
 
 
-func start_invincibility():
+func start_invincibility() -> void:
 	health_component.invincible = true
 	invincibility_timer.start()
 	_invincibility_effect()
 
 
-func _invincibility_effect():
+func _invincibility_effect() -> void:
 	invincibility_tween = get_tree().create_tween()
 	invincibility_tween.set_loops(4)
 	invincibility_tween.tween_property(model.get_node("Parts/LowerBody/UpperBody/Head/HairFront"), "modulate", Color(0, 1, 1), 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	invincibility_tween.tween_property(model.get_node("Parts/LowerBody/UpperBody/Head/HairFront"), "modulate", Color(1, 1, 1), 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
-func start_glitch():
+func start_glitch() -> void:
 	glitch_timer.start()
 	model.get_node("Effects/Glitch").set_visible(true)
 
@@ -119,16 +113,16 @@ func _on_death() -> void:
 	WorldManager.respawn_player()
 
 
-func update_hp_bar(health: float, max_health: float, instant := false):
+func update_hp_bar(health: float, max_health: float, instant := false) -> void:
 	var hud: HUD = UIManager.get_hud()
 	var value = health / max_health * 100.0
 	hud.update_hp_bar(value, instant)
 
 
-func _on_glitch_timer_timeout():
+func _on_glitch_timer_timeout() -> void:
 	model.get_node("Effects/Glitch").set_visible(false)
 
 
-func _on_invincibility_timer_timeout():
+func _on_invincibility_timer_timeout() -> void:
 	health_component.invincible = false
 	health_component.disable_hurtbox(false)

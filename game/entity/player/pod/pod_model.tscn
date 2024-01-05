@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3 uid="uid://rrmejnlmhjxn"]
+
+[ext_resource type="Script" path="res://game/entity/model.gd" id="1_jq8ic"]
+[ext_resource type="Texture2D" uid="uid://daeaeow5b58u" path="res://asset/sprite/entity/pod/face_default.png" id="1_u0fjl"]
+[ext_resource type="Texture2D" uid="uid://cgg8wwgr13pg3" path="res://asset/sprite/entity/pod/face_anger.png" id="3_5283n"]
+[ext_resource type="Texture2D" uid="uid://ckefg07o6ijkc" path="res://asset/sprite/entity/pod/face_surprise.png" id="4_q4abn"]
+[ext_resource type="Texture2D" uid="uid://c6rnk460hk8ug" path="res://asset/sprite/entity/pod/face_confused.png" id="5_qwpdg"]
+
+[sub_resource type="Animation" id="Animation_87iaw"]
+resource_name = "default"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_u0fjl")]
+}
+
+[sub_resource type="Animation" id="Animation_u17jk"]
+resource_name = "anger"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_5283n")]
+}
+
+[sub_resource type="Animation" id="Animation_yrfxa"]
+resource_name = "surprise"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_q4abn")]
+}
+
+[sub_resource type="Animation" id="Animation_va11b"]
+resource_name = "confusion"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_qwpdg")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yidty"]
+_data = {
+"anger": SubResource("Animation_u17jk"),
+"confusion": SubResource("Animation_va11b"),
+"default": SubResource("Animation_87iaw"),
+"surprise": SubResource("Animation_yrfxa")
+}
+
+[node name="PodModel" type="Node2D" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_jq8ic")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Parts" type="Node2D" parent="."]
+scale = Vector2(0.92, 1)
+metadata/_edit_group_ = true
+
+[node name="Faceplate" type="Polygon2D" parent="Parts"]
+polygon = PackedVector2Array(-12, -20, 10, -20, 20, 0, 10, 20, -12, 20, -24, 0)
+
+[node name="Screen" type="Polygon2D" parent="Parts/Faceplate"]
+scale = Vector2(0.8, 0.8)
+color = Color(0, 0, 0.278431, 1)
+polygon = PackedVector2Array(-12, -20, 10, -20, 20, 0, 10, 20, -12, 20, -24, 0)
+
+[node name="Face" type="Sprite2D" parent="Parts/Faceplate/Screen"]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(-0.833, 0)
+scale = Vector2(1.833, 2)
+texture = ExtResource("1_u0fjl")
+
+[node name="Side1" type="Polygon2D" parent="Parts"]
+position = Vector2(-24, 0)
+color = Color(0.858824, 0.929412, 1, 1)
+polygon = PackedVector2Array(7, -19, -5, 0, 0, 0, 12, -20)
+
+[node name="Side2" type="Polygon2D" parent="Parts"]
+position = Vector2(-24, 0)
+color = Color(0.729412, 0.819608, 0.894118, 1)
+polygon = PackedVector2Array(7, 19, -5, 0, 0, 0, 12, 20)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yidty")
+}

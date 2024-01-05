@@ -15,7 +15,7 @@ func _state_physics_process(_delta: float) -> void:
 	var run_input = sign(Input.get_axis("move_left", "move_right"))
 
 	player.velocity.x = run_input * player.speed
-	player.set_direction(sign(player.velocity.x) if not is_zero_approx(player.velocity.x) else player.direction)
+	player.set_direction(sign(player.velocity.x))
 
 	if jump_queued and Input.is_action_pressed("jump"):
 		transition_requested.emit("jump")

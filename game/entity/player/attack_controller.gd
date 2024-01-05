@@ -69,5 +69,5 @@ func _on_attack_area_area_entered(area: Area2D):
 # Checking recoil_flag prevents recoil from being applied more than once
 func _apply_recoil() -> void:
 	if not recoil_flag:
-		player.velocity.x = -player.direction * recoil
+		player.velocity.x = -player.get_direction() * recoil
 		recoil_flag = true

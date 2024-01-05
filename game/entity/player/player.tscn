@@ -158,6 +158,8 @@ wait_time = 0.1
 [node name="InvincibilityTimer" type="Timer" parent="Timers"]
 wait_time = 1.2
 
+[connection signal="on_death" from="HealthComponent" to="." method="_on_death"]
+[connection signal="on_hurt" from="HealthComponent" to="." method="_on_hurt"]
 [connection signal="timeout" from="MovementController/JumpState/PostWallJumpMoveTimer" to="MovementController/JumpState" method="_post_wall_jump_move_timeout"]
 [connection signal="timeout" from="MovementController/FallState/JumpQueueTimer" to="MovementController/FallState" method="_jump_queue_timeout"]
 [connection signal="timeout" from="MovementController/FallState/CoyoteTimer" to="MovementController/FallState" method="_coyote_timeout"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgtmnt861rraa"]
+
+[ext_resource type="Texture2D" uid="uid://ir36qraeslmk" path="res://asset/sprite/entity/consumable/spark.png" id="1_fem0k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8tb3j"]
+radius = 4.12311
+
+[node name="Spark" type="StaticBody2D" groups=["spark"]]
+collision_layer = 8
+collision_mask = 2
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8tb3j")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_fem0k")

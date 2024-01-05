@@ -13,13 +13,17 @@ signal on_death()
 var invincible := false
 
 
-func hurt(amount: float) -> void:
+func hurt(amount: float) -> bool:
 	if not invincible:
 		health = max(0, health - amount)
 		on_hurt.emit(health, max_health)
 		
 		if health == 0:
 			death()
+		
+		return true
+	else:
+		return false
 
 
 func death() -> void:

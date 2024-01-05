@@ -17,7 +17,7 @@ func _enter(_message = {}) -> void:
 
 
 func _state_physics_process(_delta: float) -> void:
-	player.velocity.x += player.dash * player.direction
+	player.velocity.x += player.dash * player.get_direction()
 	
 	if Input.is_action_just_pressed("jump") and $DashTimer.get_time_left() <= 0.1:
 		jump_queued = true

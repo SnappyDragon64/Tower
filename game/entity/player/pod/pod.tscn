@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://d278jibyfhrj2"]
+
+[ext_resource type="PackedScene" uid="uid://rrmejnlmhjxn" path="res://game/entity/player/pod/pod_model.tscn" id="1_rap0s"]
+[ext_resource type="Script" path="res://game/entity/component/direction_component.gd" id="1_su40m"]
+
+[node name="Pod" type="Node2D"]
+script = ExtResource("1_su40m")
+
+[node name="PodModel" parent="." instance=ExtResource("1_rap0s")]

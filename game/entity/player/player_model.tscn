@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://caioeub6pwumj"]
+[gd_scene load_steps=15 format=3 uid="uid://caioeub6pwumj"]
 
 [ext_resource type="Script" path="res://game/entity/model.gd" id="1_1m0hn"]
 [ext_resource type="Shader" path="res://asset/shader/glitch.gdshader" id="2_8dmoa"]
@@ -13,6 +13,14 @@ shader_parameter/shake_block_size = 32.0
 shader_parameter/shake_color_rate = 0.01
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_677v2"]
+
+[sub_resource type="Curve" id="Curve_o0j5x"]
+_data = [Vector2(0, 0.703297), 0.0, 1.4, 0, 0, Vector2(0.747368, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_5qi12"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 0, 1, 0, 0.85098, 0.627451, 1, 1)
 
 [sub_resource type="Animation" id="Animation_o4w1n"]
 resource_name = "attack"
@@ -210,7 +218,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(6, 6)]
+"values": [Vector2(6, 12)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -219,10 +227,10 @@ tracks/1/path = NodePath("Parts/LowerBody/UpperBody/ArmR:rotation")
 tracks/1/interp = 4
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0472, 1.39626]
+"values": [0.785398]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -231,10 +239,10 @@ tracks/2/path = NodePath("Parts/LowerBody/UpperBody/ArmL:rotation")
 tracks/2/interp = 4
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.872665, 1.22173]
+"values": [0.523599]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -243,10 +251,10 @@ tracks/3/path = NodePath("Parts/LowerBody/UpperBody/Head/HairFront/HairFlow:rota
 tracks/3/interp = 4
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.698132, 0.942478]
+"values": [0.523599, 0.785398, 0.523599]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -255,10 +263,10 @@ tracks/4/path = NodePath("Parts/LowerBody:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.15708, 0.20944]
+"values": [0.279253]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -270,7 +278,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(8, 38)]
+"values": [Vector2(20, 40)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -279,10 +287,10 @@ tracks/6/path = NodePath("Parts/LegL:rotation")
 tracks/6/interp = 4
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0472, 1.39626]
+"values": [0.785398]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -294,7 +302,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-16, 40)]
+"values": [Vector2(-24, 48)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -303,10 +311,10 @@ tracks/8/path = NodePath("Parts/LegR:rotation")
 tracks/8/interp = 4
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0472, 1.39626]
+"values": [1.0472]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -330,7 +338,7 @@ tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.174533]
+"values": [-0.279253]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -342,7 +350,7 @@ tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-32, -8)]
+"values": [Vector2(-32, 4)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
@@ -354,7 +362,7 @@ tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-12, -12)]
+"values": [Vector2(-12, -4)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
@@ -363,10 +371,10 @@ tracks/13/path = NodePath("Parts/LowerBody/UpperBody:rotation")
 tracks/13/interp = 4
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.15708, -0.20944]
+"values": [0.418879]
 }
 
 [sub_resource type="Animation" id="Animation_pu5ok"]
@@ -1075,18 +1083,19 @@ animation_player = NodePath("AnimationPlayer")
 position = Vector2(0, -68)
 
 [node name="LowerBody" type="Polygon2D" parent="Parts"]
-position = Vector2(-4, 6)
-rotation = -0.174533
+position = Vector2(6, 12)
+rotation = 0.279253
 color = Color(0.784314, 0.305882, 0.376471, 1)
 polygon = PackedVector2Array(0, 20, -8.32813, 11.6719, -12, 8, -7.5, -1.5, 6.25, -1.5, 10, 8)
 
 [node name="UpperBody" type="Polygon2D" parent="Parts/LowerBody"]
-rotation = 0.10472
+rotation = 0.418879
 color = Color(0.760784, 0.886275, 0.941176, 1)
 polygon = PackedVector2Array(-8.125, -0.25, -11, -26, 0, -30, 9, -24, 6.771, -0.25, 0, 4)
 
 [node name="Head" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 position = Vector2(0, -30)
+rotation = 6.00393
 color = Color(1, 0.858824, 0.878431, 1)
 polygon = PackedVector2Array(0, -17, 5, -15, 4, -6, 0, -3, -4.8, -6, -6, -15)
 
@@ -1101,6 +1110,7 @@ polygon = PackedVector2Array(0, -22, 1.875, -25, -2.5, -28.125)
 [node name="HairFlow" type="Polygon2D" parent="Parts/LowerBody/UpperBody/Head/HairFront"]
 z_index = -1
 position = Vector2(0, -15)
+rotation = 0.523599
 color = Color(0.631373, 0.380392, 1, 1)
 polygon = PackedVector2Array(-26, 29, -5, 1, 3.75, 1.875, 11, 14, 5.38626, -2.39873, -6.37318, -4.05141)
 
@@ -1111,27 +1121,27 @@ color = Color(0.541176, 0.298039, 0.878431, 1)
 polygon = PackedVector2Array(-6.37318, -3.05141, -26, 30, -17, 23, -28, 48, -15, 36, -20, 52, -8, 43, -4, 52, 2, 43, 6, 54, 7, 44, 14, 51, 12, 41, 19, 51, 15, 35, 18, 36, 5.38626, -1.39873)
 
 [node name="ArmR" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
-position = Vector2(-18, -6)
-rotation = 5.49779
+position = Vector2(-32, 4)
+rotation = 0.785398
 color = Color(0.658824, 0.152941, 0.160784, 1)
 polygon = PackedVector2Array(-3, -1, 4, 25, 3, 1)
 
 [node name="ArmL" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 z_index = -1
-position = Vector2(14, -6)
-rotation = 4.88693
+position = Vector2(-12, -4)
+rotation = 0.523599
 color = Color(0.45098, 0.113725, 0.117647, 1)
 polygon = PackedVector2Array(2, -1, -3, 23, -2, 1)
 
 [node name="LegR" type="Polygon2D" parent="Parts"]
-position = Vector2(-6, 40)
-rotation = 0.607375
+position = Vector2(-24, 48)
+rotation = 1.0472
 color = Color(0.0470588, 0, 0.0941176, 1)
 polygon = PackedVector2Array(4, -6, -4, 0, 3, 32)
 
 [node name="LegL" type="Polygon2D" parent="Parts"]
-position = Vector2(-12, 40)
-rotation = 1.309
+position = Vector2(20, 40)
+rotation = 0.785398
 color = Color(0.0470588, 0, 0.0941176, 1)
 polygon = PackedVector2Array(3, -5, -3, 0, 2, 32)
 
@@ -1151,9 +1161,22 @@ position = Vector2(0, -64)
 scale = Vector2(128, 128)
 texture = SubResource("CanvasTexture_677v2")
 
+[node name="Trail" type="Line2D" parent="Effects"]
+visible = false
+z_index = -3
+position = Vector2(0, -60)
+width = 92.0
+width_curve = SubResource("Curve_o0j5x")
+gradient = SubResource("Gradient_5qi12")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 16
+antialiased = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_10woe")
 }
-speed_scale = 2.0
+speed_scale = 4.0
 blend_times = [&"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"run", 0.1, &"slide", &"attack", 0.02, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"run", 0.1, &"idle", &"attack", 0.02, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"run", 0.1, &"dash", &"attack", 0.02, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"run", 0.1, &"jump", &"attack", 0.02, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"run", 0.1, &"run", &"attack", 0.02, &"attack", &"slide", 0.1, &"attack", &"idle", 0.1, &"attack", &"dash", 0.1, &"attack", &"jump", 0.1, &"attack", &"run", 0.1, &"attack", &"attack", 0.1]
