@@ -2,13 +2,14 @@ extends DirectionalCharacterBody2D
 
 
 @export var speed := 100.0
+@export var rotation_speed := 4.0
 
-var rotate_flag := false
-var rotate_direction: Constants.Y_DIRECTION = Constants.Y_DIRECTION.UP
+var first_frame_ignored = false
 var hit_edge := false
 var hit_wall := false
-var flag = false
-var acc: float
+var is_rotating := false
+var rotation_direction: Constants.Y_DIRECTION = Constants.Y_DIRECTION.UP
+var rotation_progress: float
 
 
 func _ready() -> void:
@@ -23,15 +24,13 @@ func set_direction(dir: Constants.X_DIRECTION) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if rotate_flag:
-		hit_edge = false
-		hit_wall = false
-		
-		rotation += delta * 4 * get_direction() * rotate_direction
-		acc += delta * 4
+	if is_rotating:
+		rotation += delta * rotation_speed * get_direction() * rotation_direction
+		rotation_progress += delta * rotation_speed
 
-		if acc > Constants.HALF_PI:
-			rotate_flag = false
+		if rotation_progress > Constants.HALF_PI:
+			is_rotating = false
+			rotation_progress = 0.0
 			rotation = round(rotation / Constants.HALF_PI) * Constants.HALF_PI
 			$Model.animation_player.play("crawl")
 			
@@ -40,23 +39,27 @@ func _physics_process(delta: float) -> void:
 		hit_edge = not $Raycasts/EdgeChecker.is_colliding()
 		hit_wall = $Raycasts/WallChecker.is_colliding()
 		
-		if not flag:
-			flag = true
+		if not first_frame_ignored: # Raycasts take 1 frame to report collision
+			first_frame_ignored = true
 			hit_edge = false
 
 	if is_on_floor():
-		velocity = -speed * get_up_direction().rotated(-90.0 * get_direction()) * (0 if rotate_flag and rotate_direction == Constants.Y_DIRECTION.DOWN else 1)
+		if is_rotating and rotation_direction == Constants.Y_DIRECTION.DOWN:
+			velocity = Vector2.ZERO
+		else:
+			velocity = -speed * get_up_direction().rotated(-90.0 * get_direction())
+	
 	velocity -= get_up_direction() * Constants.GRAVITY
 	
 	if is_on_floor() and hit_edge:
-		rotate_flag = true
-		rotate_direction = Constants.Y_DIRECTION.DOWN
-		acc = 0.0
+		is_rotating = true
+		hit_edge = false
+		rotation_direction = Constants.Y_DIRECTION.DOWN
 		$Model.animation_player.play("crawl_down")
 	elif hit_wall:
-		rotate_flag = true
-		rotate_direction = Constants.Y_DIRECTION.UP
-		acc = 0.0
+		is_rotating = true
+		hit_wall = false
+		rotation_direction = Constants.Y_DIRECTION.UP
 		$Model.animation_player.play("crawl_up")
 	
 	move_and_slide()

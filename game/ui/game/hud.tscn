@@ -1,36 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjgw76pc1hdyr"]
+[gd_scene load_steps=3 format=3 uid="uid://cjgw76pc1hdyr"]
 
 [ext_resource type="Script" path="res://game/ui/game/hud.gd" id="1_83jd0"]
-[ext_resource type="Texture2D" uid="uid://bxgt2a4fntqrm" path="res://asset/sprite/ui/progress_bar.png" id="1_jg6un"]
-
-[sub_resource type="Gradient" id="Gradient_u444p"]
-colors = PackedColorArray(0.0705882, 0.0352941, 0, 1, 0, 0.141176, 0.129412, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_i3cg5"]
-gradient = SubResource("Gradient_u444p")
-width = 512
-
-[sub_resource type="Gradient" id="Gradient_ty3td"]
-colors = PackedColorArray(0, 0.333333, 0, 1, 0.513726, 1, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_jv7qf"]
-gradient = SubResource("Gradient_ty3td")
-width = 512
-
-[sub_resource type="Gradient" id="Gradient_b45ne"]
-colors = PackedColorArray(0.0941176, 0, 0.14902, 1, 0.0117647, 0.0901961, 0.180392, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tleub"]
-gradient = SubResource("Gradient_b45ne")
-width = 512
-
-[sub_resource type="Gradient" id="Gradient_vrxlj"]
-colors = PackedColorArray(0, 0.333333, 1, 1, 0.513726, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3yccn"]
-gradient = SubResource("Gradient_vrxlj")
-width = 508
-height = 60
+[ext_resource type="PackedScene" uid="uid://c1daah652id7s" path="res://game/ui/game/component/player_status.tscn" id="2_qvwfh"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -57,36 +28,8 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.25
 theme_override_constants/separation = 16
 
-[node name="HPBar" type="TextureProgressBar" parent="HBoxContainer/VBoxContainerR"]
+[node name="PlayerStatus" parent="HBoxContainer/VBoxContainerR" instance=ExtResource("2_qvwfh")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-nine_patch_stretch = true
-stretch_margin_left = 3
-stretch_margin_top = 19
-stretch_margin_right = 3
-stretch_margin_bottom = 21
-texture_under = SubResource("GradientTexture2D_i3cg5")
-texture_over = ExtResource("1_jg6un")
-texture_progress = SubResource("GradientTexture2D_jv7qf")
-
-[node name="MPBar" type="TextureProgressBar" parent="HBoxContainer/VBoxContainerR"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-nine_patch_stretch = true
-stretch_margin_left = 3
-stretch_margin_top = 19
-stretch_margin_right = 3
-stretch_margin_bottom = 21
-texture_under = SubResource("GradientTexture2D_tleub")
-texture_over = ExtResource("1_jg6un")
-texture_progress = SubResource("GradientTexture2D_3yccn")
-
-[node name="Padding" type="Control" parent="HBoxContainer/VBoxContainerR"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 16.0
 
 [node name="Padding" type="Control" parent="HBoxContainer"]
 layout_mode = 2

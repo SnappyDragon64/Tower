@@ -340,4 +340,4 @@ polygon = PackedVector2Array(0, -5, -3, 3, 4, 3)
 libraries = {
 "": SubResource("AnimationLibrary_d56hn")
 }
-blend_times = [&"crawl_down", &"crawl", 0.05, &"crawl_up", &"crawl", 0.05, &"crawl", &"crawl_down", 0.05, &"crawl", &"crawl_up", 0.05]
+blend_times = [&"crawl_up", &"crawl", 0.05, &"crawl", &"crawl_up", 0.05, &"crawl", &"crawl_down", 0.05, &"crawl_down", &"crawl", 0.05]

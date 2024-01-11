@@ -33,7 +33,7 @@ var animation_locked := false
 
 func _ready() -> void:
 	super._ready()
-	update_hp_bar(health_component.health, health_component.max_health, true)
+	update_health_bar(health_component.health, health_component.max_health, true)
 
 
 func _physics_process(_delta: float) -> void:
@@ -82,7 +82,7 @@ func _dash_cooldown_timeout() -> void:
 
 
 func _on_hurt(health, max_health) -> void:
-	update_hp_bar(health, max_health)
+	update_health_bar(health, max_health)
 	health_component.disable_hurtbox(true)
 	start_invincibility()
 	start_glitch()
@@ -113,10 +113,16 @@ func _on_death() -> void:
 	WorldManager.respawn_player()
 
 
-func update_hp_bar(health: float, max_health: float, instant := false) -> void:
-	var hud: HUD = UIManager.get_hud()
-	var value = health / max_health * 100.0
-	hud.update_hp_bar(value, instant)
+func update_health_bar(health: float, max_health: float, instant := false) -> void:
+	var hud := UIManager.get_hud()
+	var value = health / max_health
+	hud.update_health_bar(value, instant)
+
+
+func update_mana_bar(mana: float, max_mana: float, instant := false) -> void:
+	var hud := UIManager.get_hud()
+	var value = mana / max_mana
+	hud.update_mana_bar(value, instant)
 
 
 func _on_glitch_timer_timeout() -> void:

@@ -6,22 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://ckefg07o6ijkc" path="res://asset/sprite/entity/pod/face_surprise.png" id="4_q4abn"]
 [ext_resource type="Texture2D" uid="uid://c6rnk460hk8ug" path="res://asset/sprite/entity/pod/face_confused.png" id="5_qwpdg"]
 
-[sub_resource type="Animation" id="Animation_87iaw"]
-resource_name = "default"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_u0fjl")]
-}
-
 [sub_resource type="Animation" id="Animation_u17jk"]
 resource_name = "anger"
 length = 0.001
@@ -38,22 +22,6 @@ tracks/0/keys = {
 "values": [ExtResource("3_5283n")]
 }
 
-[sub_resource type="Animation" id="Animation_yrfxa"]
-resource_name = "surprise"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_q4abn")]
-}
-
 [sub_resource type="Animation" id="Animation_va11b"]
 resource_name = "confusion"
 length = 0.001
@@ -68,6 +36,38 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("5_qwpdg")]
+}
+
+[sub_resource type="Animation" id="Animation_87iaw"]
+resource_name = "default"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_u0fjl")]
+}
+
+[sub_resource type="Animation" id="Animation_yrfxa"]
+resource_name = "surprise"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parts/Faceplate/Screen/Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_q4abn")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yidty"]

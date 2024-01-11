@@ -10,7 +10,7 @@ size = Vector2(1000, 100)
 [node name="Spawnpoints" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="Spawnpoints"]
-position = Vector2(960, 400)
+position = Vector2(550, 670)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(960, 720)
@@ -26,8 +26,22 @@ z_index = 100
 color = Color(0.0588235, 0.0627451, 0.129412, 1)
 polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
 
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(960, 50)
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource("RectangleShape2D_3tt3v")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D5"]
+z_index = 100
+color = Color(0.0588235, 0.0627451, 0.129412, 1)
+polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
+
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(1508, 579)
+position = Vector2(1510, 500)
 rotation = 1.5708
 collision_layer = 2
 collision_mask = 0
@@ -37,6 +51,21 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_3tt3v")
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D3"]
+z_index = 100
+color = Color(0.0588235, 0.0627451, 0.129412, 1)
+polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(410, 270)
+rotation = 1.5708
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource("RectangleShape2D_3tt3v")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D4"]
 z_index = 100
 color = Color(0.0588235, 0.0627451, 0.129412, 1)
 polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
@@ -57,4 +86,16 @@ polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
 
 [node name="Mite" parent="." instance=ExtResource("1_ov2kg")]
 position = Vector2(1160, 670)
+direction = -1
+
+[node name="Mite2" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(1301, 670)
+direction = -1
+
+[node name="Mite3" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(1021, 670)
+direction = -1
+
+[node name="Mite4" parent="." instance=ExtResource("1_ov2kg")]
+position = Vector2(889, 670)
 direction = -1

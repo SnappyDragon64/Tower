@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cdcov0ancsa1y"]
+[gd_scene load_steps=16 format=3 uid="uid://cdcov0ancsa1y"]
 
 [ext_resource type="Script" path="res://game/entity/player/player.gd" id="1_u23no"]
 [ext_resource type="Script" path="res://game/entity/state_machine/state_machine.gd" id="1_vcpkk"]
@@ -11,10 +11,14 @@
 [ext_resource type="Script" path="res://game/entity/player/dash_state.gd" id="8_0do5e"]
 [ext_resource type="Script" path="res://game/entity/player/slide_state.gd" id="9_g5ry0"]
 [ext_resource type="Script" path="res://game/entity/player/attack_controller.gd" id="10_30sbt"]
+[ext_resource type="Script" path="res://game/entity/player/spark_magnet.gd" id="12_x65ru"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfoky"]
 radius = 20.0
 height = 136.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pkucp"]
+radius = 144.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ht55"]
 radius = 60.0
@@ -29,16 +33,18 @@ script = ExtResource("1_u23no")
 scale = Vector2(1.2, 1.2)
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -68)
 shape = SubResource("CapsuleShape2D_tfoky")
 
 [node name="HealthComponent" type="Area2D" parent="."]
+position = Vector2(0, -68)
 collision_mask = 0
 script = ExtResource("3_egs40")
 max_health = 40.0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent"]
-position = Vector2(0, -68)
+visible = false
 shape = SubResource("CapsuleShape2D_tfoky")
 
 [node name="MovementController" type="Node" parent="."]
@@ -135,12 +141,22 @@ hit_from_inside = true
 
 [node name="Areas" type="Node2D" parent="."]
 
+[node name="SparkMagnet" type="Area2D" parent="Areas"]
+position = Vector2(0, -68)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("12_x65ru")
+
+[node name="Shape" type="CollisionShape2D" parent="Areas/SparkMagnet"]
+shape = SubResource("CircleShape2D_pkucp")
+
 [node name="AttackArea" type="Area2D" parent="Areas"]
 collision_layer = 0
 collision_mask = 6
 monitoring = false
 
 [node name="Hitbox" type="CollisionShape2D" parent="Areas/AttackArea"]
+visible = false
 position = Vector2(110, -60)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8ht55")
@@ -158,8 +174,10 @@ wait_time = 0.1
 [node name="InvincibilityTimer" type="Timer" parent="Timers"]
 wait_time = 1.2
 
+[connection signal="direction_changed" from="." to="AttackController" method="_on_direction_changed"]
 [connection signal="on_death" from="HealthComponent" to="." method="_on_death"]
 [connection signal="on_hurt" from="HealthComponent" to="." method="_on_hurt"]
+[connection signal="on_hurt" from="HealthComponent" to="MovementController/DashState" method="_on_hurt"]
 [connection signal="timeout" from="MovementController/JumpState/PostWallJumpMoveTimer" to="MovementController/JumpState" method="_post_wall_jump_move_timeout"]
 [connection signal="timeout" from="MovementController/FallState/JumpQueueTimer" to="MovementController/FallState" method="_jump_queue_timeout"]
 [connection signal="timeout" from="MovementController/FallState/CoyoteTimer" to="MovementController/FallState" method="_coyote_timeout"]

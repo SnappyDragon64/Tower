@@ -3,6 +3,11 @@ extends Node
 
 @export var damage := 10
 @export var recoil := 1000
+@export var spark_probability := 0.6
+@export var spark_amount := range(2, 5)
+
+@onready var effect_kick_slash: Sprite2D
+@onready var spark_preload: PackedScene = preload("res://game/entity/consumable/spark.tscn")
 
 var player: Player
 var valid_states := ["idle", "run", "jump", "fall"]
@@ -13,7 +18,8 @@ func _ready() -> void:
 	await owner.ready
 	player = owner as Player
 	assert(player != null)
-	player.direction_changed.connect(_on_direction_changed)
+	
+	effect_kick_slash = player.model.get_node("Effects/KickSlash")
 
 
 func _physics_process(_delta) -> void:
@@ -21,7 +27,7 @@ func _physics_process(_delta) -> void:
 		$AttackTimer.start()
 		player.can_attack = false
 		player.attacking = true
-		player.model.get_node("Effects/KickSlash").set_visible(true)
+		effect_kick_slash.set_visible(true)
 		player.play_animation("attack")
 		player.animation_locked = true
 	
@@ -43,7 +49,7 @@ func _cancel_attack() -> void:
 	player.attack_area.set_monitoring(false)
 	player.animation_locked = false
 	player.attacking = false
-	player.model.get_node("Effects/KickSlash").set_visible(false) # in case of preliminary attack cancel
+	effect_kick_slash.set_visible(false) # in case of preliminary attack cancel
 	var current_anim = player.movement_controller.current_state.animation
 	player.play_animation(current_anim)
 	$AttackCooldown.start()
@@ -63,7 +69,8 @@ func _on_attack_area_area_entered(area: Area2D):
 	_apply_recoil()
 	
 	if area is HealthComponent:
-		area.hurt(damage)
+		if area.hurt(damage):
+			_spawn_sparks(area.get_global_position())
 
 
 # Checking recoil_flag prevents recoil from being applied more than once
@@ -71,3 +78,16 @@ func _apply_recoil() -> void:
 	if not recoil_flag:
 		player.velocity.x = -player.get_direction() * recoil
 		recoil_flag = true
+
+
+func _spawn_sparks(pos: Vector2):
+	var should_spawn := randf()
+	
+	if should_spawn < spark_probability:
+		var amount_to_spawn: int = spark_amount.pick_random()
+		
+		for i in range(amount_to_spawn):
+			var spark_instance = spark_preload.instantiate()
+			spark_instance.velocity.x = randf_range(-100.0, 100.0)
+			spark_instance.velocity.y = -200.0
+			WorldManager.spawn(spark_instance, pos)

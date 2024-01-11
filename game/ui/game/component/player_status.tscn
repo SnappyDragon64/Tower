@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1daah652id7s"]
+
+[ext_resource type="Script" path="res://game/ui/game/component/player_status.gd" id="1_j76ml"]
+
+[node name="PlayerStatus" type="Node2D"]
+position = Vector2(-5.6, 0)
+skew = 0.20944
+script = ExtResource("1_j76ml")
+
+[node name="SpellHexagon" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(160, 69.28, 120, 138.56, 50, 121.24, 20, 69.28, 50, 17.32, 120, 0)
+
+[node name="Faceplate" type="Polygon2D" parent="SpellHexagon"]
+color = Color(1, 0, 1, 1)
+texture_scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(153, 69, 115, 127, 56, 112, 27, 69, 55, 22, 116, 10)
+
+[node name="HealthBar" type="Polygon2D" parent="SpellHexagon"]
+polygon = PackedVector2Array(160, 69.28, 138.335, 31.756, 507, 0, 467, 56)
+
+[node name="Under" type="Polygon2D" parent="SpellHexagon/HealthBar"]
+color = Color(0, 0.101961, 0.0901961, 1)
+polygon = PackedVector2Array(163, 65, 146, 35, 498, 6, 465, 51)
+
+[node name="Progress" type="Polygon2D" parent="SpellHexagon/HealthBar"]
+color = Color(0, 0.745098, 0.411765, 1)
+polygon = PackedVector2Array(146, 35, 163, 65, 465, 51, 498, 6)
+
+[node name="ManaBar" type="Polygon2D" parent="SpellHexagon"]
+polygon = PackedVector2Array(160, 69, 139.956, 103.995, 398, 116, 432.164, 57.507)
+
+[node name="Under" type="Polygon2D" parent="SpellHexagon/ManaBar"]
+color = Color(0.0156863, 0.0941176, 0.172549, 1)
+polygon = PackedVector2Array(163, 73, 147, 100, 395, 110, 423, 62)
+
+[node name="Progress" type="Polygon2D" parent="SpellHexagon/ManaBar"]
+color = Color(0, 0.435294, 1, 1)
+polygon = PackedVector2Array(163, 73, 147, 100, 395, 110, 423, 62)

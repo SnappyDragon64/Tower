@@ -6,7 +6,6 @@ var jump_queued := false
 
 func _ready() -> void:
 	await super._ready()
-	player.health_component.on_hurt.connect(_on_hurt)
 
 
 func _enter(_message = {}) -> void:
