@@ -1,35 +1,39 @@
-[gd_scene load_steps=16 format=3 uid="uid://cdcov0ancsa1y"]
+[gd_scene load_steps=18 format=3 uid="uid://cdcov0ancsa1y"]
 
-[ext_resource type="Script" path="res://game/entity/player/player.gd" id="1_u23no"]
-[ext_resource type="Script" path="res://game/entity/state_machine/state_machine.gd" id="1_vcpkk"]
-[ext_resource type="Script" path="res://game/entity/player/run_state.gd" id="2_k78y2"]
-[ext_resource type="Script" path="res://game/entity/component/health_component.gd" id="3_egs40"]
-[ext_resource type="Script" path="res://game/entity/player/idle_state.gd" id="3_y24cg"]
-[ext_resource type="Script" path="res://game/entity/player/jump_state.gd" id="4_qi5n4"]
-[ext_resource type="Script" path="res://game/entity/player/fall_state.gd" id="5_ilmt4"]
-[ext_resource type="PackedScene" uid="uid://caioeub6pwumj" path="res://game/entity/player/player_model.tscn" id="7_k4am0"]
-[ext_resource type="Script" path="res://game/entity/player/dash_state.gd" id="8_0do5e"]
-[ext_resource type="Script" path="res://game/entity/player/slide_state.gd" id="9_g5ry0"]
-[ext_resource type="Script" path="res://game/entity/player/attack_controller.gd" id="10_30sbt"]
-[ext_resource type="Script" path="res://game/entity/player/spark_magnet.gd" id="12_x65ru"]
+[ext_resource type="Script" path="res://game/entity/player/player/player.gd" id="1_fawgy"]
+[ext_resource type="PackedScene" uid="uid://caioeub6pwumj" path="res://game/entity/player/player/player_model.tscn" id="2_b4kaf"]
+[ext_resource type="Script" path="res://game/entity/component/health_component.gd" id="3_1f14g"]
+[ext_resource type="Script" path="res://game/entity/state_machine/state_machine.gd" id="4_2gvcv"]
+[ext_resource type="Script" path="res://game/entity/player/player/state/idle_state.gd" id="5_1nq8t"]
+[ext_resource type="Script" path="res://game/entity/player/player/state/run_state.gd" id="6_bksam"]
+[ext_resource type="Script" path="res://game/entity/player/player/state/jump_state.gd" id="7_42dpq"]
+[ext_resource type="Script" path="res://game/entity/player/player/state/fall_state.gd" id="8_ygxxx"]
+[ext_resource type="Script" path="res://game/entity/player/player/state/dash_state.gd" id="9_u0mbb"]
+[ext_resource type="Script" path="res://game/entity/player/player/state/slide_state.gd" id="10_1mfyd"]
+[ext_resource type="Script" path="res://game/entity/player/player/attack_controller.gd" id="11_fv8up"]
+[ext_resource type="Script" path="res://game/entity/player/player/spell_controller.gd" id="12_r1f35"]
+[ext_resource type="PackedScene" uid="uid://cyck73l1jnys2" path="res://game/entity/player/pod/pod.tscn" id="13_b01jp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfoky"]
 radius = 20.0
 height = 136.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pkucp"]
-radius = 144.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ht55"]
 radius = 60.0
 height = 160.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_pkucp"]
+radius = 144.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sgi7l"]
+radius = 8.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 10
 collision_mask = 3
-script = ExtResource("1_u23no")
+script = ExtResource("1_fawgy")
 
-[node name="PlayerModel" parent="." instance=ExtResource("7_k4am0")]
+[node name="PlayerModel" parent="." instance=ExtResource("2_b4kaf")]
 scale = Vector2(1.2, 1.2)
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -40,7 +44,7 @@ shape = SubResource("CapsuleShape2D_tfoky")
 [node name="HealthComponent" type="Area2D" parent="."]
 position = Vector2(0, -68)
 collision_mask = 0
-script = ExtResource("3_egs40")
+script = ExtResource("3_1f14g")
 max_health = 40.0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent"]
@@ -48,21 +52,21 @@ visible = false
 shape = SubResource("CapsuleShape2D_tfoky")
 
 [node name="MovementController" type="Node" parent="."]
-script = ExtResource("1_vcpkk")
+script = ExtResource("4_2gvcv")
 initial_state = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="MovementController"]
-script = ExtResource("3_y24cg")
+script = ExtResource("5_1nq8t")
 animation = "idle"
 state_id = "idle"
 
 [node name="RunState" type="Node" parent="MovementController"]
-script = ExtResource("2_k78y2")
+script = ExtResource("6_bksam")
 animation = "run"
 state_id = "run"
 
 [node name="JumpState" type="Node" parent="MovementController"]
-script = ExtResource("4_qi5n4")
+script = ExtResource("7_42dpq")
 animation = "jump"
 state_id = "jump"
 
@@ -71,7 +75,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="FallState" type="Node" parent="MovementController"]
-script = ExtResource("5_ilmt4")
+script = ExtResource("8_ygxxx")
 animation = "jump"
 state_id = "fall"
 
@@ -86,7 +90,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="DashState" type="Node" parent="MovementController"]
-script = ExtResource("8_0do5e")
+script = ExtResource("9_u0mbb")
 animation = "dash"
 state_id = "dash"
 
@@ -96,12 +100,21 @@ wait_time = 0.2
 one_shot = true
 
 [node name="SlideState" type="Node" parent="MovementController"]
-script = ExtResource("9_g5ry0")
+script = ExtResource("10_1mfyd")
 animation = "dash"
 state_id = "slide"
 
-[node name="AttackController" type="Node" parent="."]
-script = ExtResource("10_30sbt")
+[node name="AttackController" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitoring = false
+script = ExtResource("11_fv8up")
+
+[node name="Hitbox" type="CollisionShape2D" parent="AttackController"]
+visible = false
+position = Vector2(110, -60)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_8ht55")
 
 [node name="AttackTimer" type="Timer" parent="AttackController"]
 process_callback = 0
@@ -112,6 +125,29 @@ one_shot = true
 process_callback = 0
 wait_time = 0.4
 one_shot = true
+
+[node name="SpellController" type="Node2D" parent="."]
+script = ExtResource("12_r1f35")
+
+[node name="Spells" type="Node2D" parent="SpellController"]
+
+[node name="SparkAttractor" type="Area2D" parent="SpellController"]
+visible = false
+position = Vector2(0, -68)
+collision_layer = 0
+collision_mask = 8
+
+[node name="Shape" type="CollisionShape2D" parent="SpellController/SparkAttractor"]
+shape = SubResource("CircleShape2D_pkucp")
+
+[node name="SparkCollector" type="Area2D" parent="SpellController"]
+visible = false
+position = Vector2(0, -68)
+collision_layer = 0
+collision_mask = 8
+
+[node name="Shape" type="CollisionShape2D" parent="SpellController/SparkCollector"]
+shape = SubResource("CircleShape2D_sgi7l")
 
 [node name="Raycasts" type="Node2D" parent="."]
 
@@ -139,28 +175,6 @@ target_position = Vector2(-0.1, 0)
 collision_mask = 2
 hit_from_inside = true
 
-[node name="Areas" type="Node2D" parent="."]
-
-[node name="SparkMagnet" type="Area2D" parent="Areas"]
-position = Vector2(0, -68)
-collision_layer = 0
-collision_mask = 8
-script = ExtResource("12_x65ru")
-
-[node name="Shape" type="CollisionShape2D" parent="Areas/SparkMagnet"]
-shape = SubResource("CircleShape2D_pkucp")
-
-[node name="AttackArea" type="Area2D" parent="Areas"]
-collision_layer = 0
-collision_mask = 6
-monitoring = false
-
-[node name="Hitbox" type="CollisionShape2D" parent="Areas/AttackArea"]
-visible = false
-position = Vector2(110, -60)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_8ht55")
-
 [node name="Timers" type="Node" parent="."]
 
 [node name="DashCooldownTimer" type="Timer" parent="Timers"]
@@ -174,7 +188,13 @@ wait_time = 0.1
 [node name="InvincibilityTimer" type="Timer" parent="Timers"]
 wait_time = 1.2
 
+[node name="Pod" parent="." instance=ExtResource("13_b01jp")]
+z_index = -5
+position = Vector2(-64, -128)
+
 [connection signal="direction_changed" from="." to="AttackController" method="_on_direction_changed"]
+[connection signal="direction_changed" from="." to="Pod" method="_on_player_direction_changed"]
+[connection signal="position_updated" from="." to="Pod" method="_on_player_position_updated"]
 [connection signal="on_death" from="HealthComponent" to="." method="_on_death"]
 [connection signal="on_hurt" from="HealthComponent" to="." method="_on_hurt"]
 [connection signal="on_hurt" from="HealthComponent" to="MovementController/DashState" method="_on_hurt"]
@@ -182,10 +202,13 @@ wait_time = 1.2
 [connection signal="timeout" from="MovementController/FallState/JumpQueueTimer" to="MovementController/FallState" method="_jump_queue_timeout"]
 [connection signal="timeout" from="MovementController/FallState/CoyoteTimer" to="MovementController/FallState" method="_coyote_timeout"]
 [connection signal="timeout" from="MovementController/DashState/DashTimer" to="MovementController/DashState" method="_dash_timeout"]
+[connection signal="area_entered" from="AttackController" to="AttackController" method="_on_area_entered"]
+[connection signal="body_entered" from="AttackController" to="AttackController" method="_on_body_entered"]
 [connection signal="timeout" from="AttackController/AttackTimer" to="AttackController" method="_attack_timeout"]
 [connection signal="timeout" from="AttackController/AttackCooldown" to="AttackController" method="_attack_cooldown_timeout"]
-[connection signal="area_entered" from="Areas/AttackArea" to="AttackController" method="_on_attack_area_area_entered"]
-[connection signal="body_entered" from="Areas/AttackArea" to="AttackController" method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="SpellController/SparkAttractor" to="SpellController" method="_on_spark_attractor_body_entered"]
+[connection signal="body_exited" from="SpellController/SparkAttractor" to="SpellController" method="_on_spark_attractor_body_exited"]
+[connection signal="body_entered" from="SpellController/SparkCollector" to="SpellController" method="_on_spark_collector_body_entered"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/GlitchTimer" to="." method="_on_glitch_timer_timeout"]
 [connection signal="timeout" from="Timers/InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

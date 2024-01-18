@@ -28,7 +28,6 @@ func hurt(amount: float) -> bool:
 
 func death() -> void:
 	on_death.emit()
-	get_parent().queue_free()
 
 
 func disable_hurtbox(flag) -> void:

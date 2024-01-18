@@ -14,11 +14,11 @@ signal position_updated(pos: Vector2)
 @onready var model: Model = $PlayerModel
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var movement_controller: StateMachine = $MovementController
+@onready var attack_controller: Area2D = $AttackController
 @onready var hand_raycast_r: RayCast2D = $Raycasts/HandRaycastR
 @onready var foot_raycast_r: RayCast2D = $Raycasts/FootRaycastR
 @onready var hand_raycast_l: RayCast2D = $Raycasts/HandRaycastL
 @onready var foot_raycast_l: RayCast2D = $Raycasts/FootRaycastL
-@onready var attack_area: Area2D = $Areas/AttackArea
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 @onready var glitch_timer: Timer = $Timers/GlitchTimer
 @onready var invincibility_timer: Timer = $Timers/InvincibilityTimer
@@ -53,7 +53,7 @@ func can_dash() -> bool:
 func set_direction(dir: Constants.X_DIRECTION) -> void:
 	super.set_direction(dir)
 	model.apply_direction(get_direction())
-	attack_area.set_scale(Vector2(get_direction(), 1))
+	attack_controller.set_scale(Vector2(get_direction(), 1))
 
 
 func on_wall() -> bool:

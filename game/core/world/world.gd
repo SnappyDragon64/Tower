@@ -3,9 +3,8 @@ extends Node2D
 ## The level loader that has a reference to the active player and level
 
 
-@onready var player_preload = preload('res://game/entity/player/player.tscn')
-@onready var camera_preload = preload('res://game/entity/player/camera.tscn')
-
+@onready var player_preload = preload('res://game/entity/player/player/player.tscn')
+@onready var camera_preload = preload('res://game/entity/player/camera/camera.tscn')
 
 var player: Player
 var camera: Camera

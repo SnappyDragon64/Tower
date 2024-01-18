@@ -1,52 +1,50 @@
 extends Node2D
 
 
-@onready var health_progress: Polygon2D = $SpellHexagon/HealthBar/Progress
-@onready var mana_progress: Polygon2D = $SpellHexagon/ManaBar/Progress
+@onready var health_progress: Polygon2D = $SpellHexagon/HealthBar/Under/Progress
+@onready var mana_progress: Polygon2D = $SpellHexagon/ManaBar/Under/Progress
 @onready var default_health_polygon: PackedVector2Array = health_progress.get_polygon()
 @onready var default_mana_polygon: PackedVector2Array = mana_progress.get_polygon()
+@onready var spell_slots: Array[Polygon2D] = [$SpellHexagon/Spells/Slot1/Icon, $SpellHexagon/Spells/Slot2/Icon, $SpellHexagon/Spells/Slot3/Icon, $SpellHexagon/Spells/Slot4/Icon]
+@onready var active_spell: Polygon2D = $SpellHexagon/ActiveSpell
 
 var health_tween: Tween
 var mana_tween: Tween
 
 var health: float:
 	set(value):
-		update_progress(health_progress, default_health_polygon, value)
+		_update_progress(health_progress, default_health_polygon, value)
 		health = value
 	get:
 		return health
 
 var mana: float:
 	set(value):
-		update_progress(mana_progress, default_mana_polygon, value)
+		_update_progress(mana_progress, default_mana_polygon, value)
 		mana = value
 	get:
 		return mana
 
 
 func update_health_bar(value: float, instant := false) -> void:
-	if is_instance_valid(health_tween):
-		health_tween.stop()
+	_stop_tween(health_tween)
 	
 	if instant:
 		health = value
 	else:
-		health_tween = get_tree().create_tween()
-		health_tween.tween_property(self, "health", value, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		health_tween = _start_tween("health", value)
 
 
 func update_mana_bar(value: float, instant := false) -> void:
-	if is_instance_valid(mana_tween):
-		mana_tween.stop()
+	_stop_tween(mana_tween)
 	
 	if instant:
 		mana = value
 	else:
-		mana_tween = get_tree().create_tween()
-		mana_tween.tween_property(self, "mana", value, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		mana_tween = _start_tween("mana", value)
 
 
-func update_progress(progress: Polygon2D, default_polygon: PackedVector2Array, value: float) -> void:
+func _update_progress(progress: Polygon2D, default_polygon: PackedVector2Array, value: float) -> void:
 	var bottom_endpoint = default_polygon[0].lerp(default_polygon[3], value)
 	var top_endpoint = default_polygon[1].lerp(default_polygon[2], value)
 	var polygon = progress.get_polygon()
@@ -54,3 +52,25 @@ func update_progress(progress: Polygon2D, default_polygon: PackedVector2Array, v
 	polygon.set(3, bottom_endpoint)
 	progress.set_polygon(polygon)
 
+
+func _start_tween(property: NodePath, value: float) -> Tween:
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, property, value, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	return tween
+
+
+func _stop_tween(tween: Tween) -> void:
+	if is_instance_valid(tween):
+		tween.stop()
+
+
+func set_active_spell(id: int) -> void:
+	for i in range(4):
+		var current_slot = spell_slots[i]
+		
+		if i == id:
+			current_slot.set_color(Color(1.0, 1.0, 1.0))
+			var current_texture: Texture2D = current_slot.get_texture()
+			active_spell.set_texture(current_texture)
+		else:
+			current_slot.set_color(Color(0.5, 0.5, 0.5))

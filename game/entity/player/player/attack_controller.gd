@@ -1,8 +1,9 @@
 extends Node
 
 
-@export var damage := 10
-@export var recoil := 1000
+@export var damage := 10.0
+@export var recoil := 1000.0
+@export var max_spark_speed := Vector2(100.0, -200.0)
 @export var spark_probability := 0.6
 @export var spark_amount := range(2, 5)
 
@@ -32,7 +33,7 @@ func _physics_process(_delta) -> void:
 		player.animation_locked = true
 	
 	if player.attacking and is_equal_approx($AttackTimer.get_time_left(), 0.1):
-		player.attack_area.set_monitoring(true)
+		player.attack_controller.set_monitoring(true)
 
 
 func _on_direction_changed(_old_direction, _new_direction) -> void:
@@ -46,7 +47,7 @@ func _attack_timeout() -> void:
 
 func _cancel_attack() -> void:
 	recoil_flag = false
-	player.attack_area.set_monitoring(false)
+	player.attack_controller.set_monitoring(false)
 	player.animation_locked = false
 	player.attacking = false
 	effect_kick_slash.set_visible(false) # in case of preliminary attack cancel
@@ -60,12 +61,12 @@ func _attack_cooldown_timeout() -> void:
 
 
 # When objects with physics collision are hit (i.e. terrain or props)
-func _on_attack_area_body_entered(_body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	_apply_recoil()
 
 
 # When enemies are hit
-func _on_attack_area_area_entered(area: Area2D):
+func _on_area_entered(area: Area2D):
 	_apply_recoil()
 	
 	if area is HealthComponent:
@@ -80,7 +81,7 @@ func _apply_recoil() -> void:
 		recoil_flag = true
 
 
-func _spawn_sparks(pos: Vector2):
+func _spawn_sparks(pos: Vector2) -> void:
 	var should_spawn := randf()
 	
 	if should_spawn < spark_probability:
@@ -88,6 +89,6 @@ func _spawn_sparks(pos: Vector2):
 		
 		for i in range(amount_to_spawn):
 			var spark_instance = spark_preload.instantiate()
-			spark_instance.velocity.x = randf_range(-100.0, 100.0)
-			spark_instance.velocity.y = -200.0
+			spark_instance.velocity.x = randf_range(-max_spark_speed.x, max_spark_speed.x)
+			spark_instance.velocity.y = max_spark_speed.y
 			WorldManager.spawn(spark_instance, pos)
