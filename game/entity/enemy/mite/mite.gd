@@ -74,14 +74,12 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurt(_current: float, _max: float) -> void:
 	var hurt_effect = hurt_effect_preload.instantiate()
-	health_component.add_child(hurt_effect)
+	health_component.call_deferred("add_child", hurt_effect)
 
 
 func _on_death():
 	dead = true
 	spikes_component.set_monitoring(false)
-	var hurt_effect = hurt_effect_preload.instantiate()
-	WorldManager.spawn(hurt_effect, health_component.get_global_position())
 	model.play_animation("death")
 	await model.animation_player.animation_finished
 	queue_free()

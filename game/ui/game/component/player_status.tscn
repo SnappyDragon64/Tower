@@ -1,89 +1,112 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1daah652id7s"]
+[gd_scene load_steps=7 format=3 uid="uid://c1daah652id7s"]
 
 [ext_resource type="Script" path="res://game/ui/game/component/player_status.gd" id="1_j76ml"]
-[ext_resource type="Texture2D" uid="uid://ccvxl84cndg7x" path="res://asset/sprite/spell/heal.png" id="2_hqwor"]
-[ext_resource type="Texture2D" uid="uid://cyfsw0r37cyqx" path="res://asset/sprite/spell/lance.png" id="3_pw7hi"]
-[ext_resource type="Texture2D" uid="uid://bbdy28r2tnj6w" path="res://asset/sprite/spell/spear.png" id="4_ylsy7"]
-[ext_resource type="Texture2D" uid="uid://8jeu4ldcpvg0" path="res://asset/sprite/spell/smash.png" id="5_1r7ai"]
+[ext_resource type="Texture2D" uid="uid://bblerueg4dagr" path="res://asset/sprite/effect/cooldown_overlay.png" id="3_6mvbi"]
+[ext_resource type="Shader" path="res://asset/shader/darken.gdshader" id="3_k8c0q"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mi2li"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_babee"]
+shader = ExtResource("3_k8c0q")
+shader_parameter/strength = 0.25
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_a75d3"]
 
 [node name="PlayerStatus" type="Node2D"]
 script = ExtResource("1_j76ml")
 
 [node name="SpellHexagon" type="Polygon2D" parent="."]
-position = Vector2(-5.6, 0)
-skew = 0.20944
-polygon = PackedVector2Array(160, 69.28, 120, 138.56, 50, 121.24, 20, 69.28, 50, 17.32, 120, 0)
+position = Vector2(48, 0)
+scale = Vector2(1.25, 1)
+skew = 0.523599
+color = Color(0, 1, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(48, 0, 0, 32, 0, 96, 48, 128, 96, 96, 96, 32)
 
 [node name="ActiveSpell" type="Polygon2D" parent="SpellHexagon"]
-texture = ExtResource("2_hqwor")
-texture_offset = Vector2(-36, -12)
-texture_scale = Vector2(1.1, 1.1)
-texture_rotation = -0.0349066
-polygon = PackedVector2Array(153, 69, 115, 127, 56, 112, 27, 69, 55, 22, 116, 10)
+position = Vector2(48, 64)
+scale = Vector2(0.938, 0.938)
+antialiased = true
+texture = SubResource("PlaceholderTexture2D_mi2li")
+polygon = PackedVector2Array(0, -64, -48, -32, -48, 32, 0, 64, 48, 32, 48, -32)
+
+[node name="Overlay" type="Polygon2D" parent="SpellHexagon/ActiveSpell"]
+material = SubResource("ShaderMaterial_babee")
+texture = ExtResource("3_6mvbi")
+polygon = PackedVector2Array(0, -64, -48, -32, -48, 32, 0, 64, 48, 32, 48, -32)
 
 [node name="HealthBar" type="Polygon2D" parent="SpellHexagon"]
-polygon = PackedVector2Array(160, 69.28, 138.832, 32.616, 507, 0, 467, 56)
+color = Color(0, 1, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(96, 56, 96, 32, 400, 32, 400, 56)
 
 [node name="Under" type="Polygon2D" parent="SpellHexagon/HealthBar"]
 color = Color(0, 0.101961, 0.0901961, 1)
-polygon = PackedVector2Array(163, 65, 146.652, 36.8043, 498, 6, 465, 51)
+antialiased = true
+polygon = PackedVector2Array(96, 52, 96, 36, 396, 36, 396, 52)
 
 [node name="Progress" type="Polygon2D" parent="SpellHexagon/HealthBar/Under"]
 color = Color(0, 0.745098, 0.411765, 1)
-polygon = PackedVector2Array(146.652, 36.8043, 163, 65, 465, 51, 498, 6)
+antialiased = true
+polygon = PackedVector2Array(96, 52, 96, 36, 396, 36, 396, 52)
 
 [node name="ManaBar" type="Polygon2D" parent="SpellHexagon"]
-polygon = PackedVector2Array(160, 69, 143.9, 97.165, 397, 103, 432.164, 57.507)
+color = Color(0, 1, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(96, 56, 96, 76, 360, 76, 360, 56)
 
 [node name="Under" type="Polygon2D" parent="SpellHexagon/ManaBar"]
 color = Color(0.0156863, 0.0941176, 0.172549, 1)
-polygon = PackedVector2Array(163, 73, 149, 93, 394, 98, 423, 62)
+antialiased = true
+polygon = PackedVector2Array(96, 56, 96, 72, 356, 72, 356, 56)
 
 [node name="Progress" type="Polygon2D" parent="SpellHexagon/ManaBar/Under"]
-color = Color(0, 0.435294, 1, 1)
-polygon = PackedVector2Array(163, 73, 149, 93, 394, 98, 423, 62)
+color = Color(0, 0.384314, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(96, 56, 96, 72, 356, 72, 356, 56)
 
 [node name="Spells" type="Node2D" parent="SpellHexagon"]
 
 [node name="Slot1" type="Polygon2D" parent="SpellHexagon/Spells"]
-polygon = PackedVector2Array(144, 97, 125.788, 128.536, 174, 138.56, 193.906, 98.318)
+position = Vector2(96, 76)
+color = Color(0, 1, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(0, 0, 0, 20, 42, 20, 42, 0)
 
 [node name="Icon" type="Polygon2D" parent="SpellHexagon/Spells/Slot1"]
-texture = ExtResource("2_hqwor")
-texture_offset = Vector2(-148, -78)
-texture_scale = Vector2(3.2, 3.2)
-texture_rotation = -0.0872665
-polygon = PackedVector2Array(147, 98, 131, 122, 171, 131, 185, 100)
+antialiased = true
+texture = SubResource("PlaceholderTexture2D_a75d3")
+polygon = PackedVector2Array(0, 0, 0, 16, 38, 16, 38, 0)
 
 [node name="Slot2" type="Polygon2D" parent="SpellHexagon/Spells"]
-polygon = PackedVector2Array(193.906, 98.318, 178.12, 130.232, 227, 142, 243.906, 99.471)
+position = Vector2(138, 76)
+color = Color(0, 1, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(0, 0, 0, 20, 42, 20, 42, 0)
 
 [node name="Icon" type="Polygon2D" parent="SpellHexagon/Spells/Slot2"]
-color = Color(0.501961, 0.501961, 0.501961, 1)
-texture = ExtResource("3_pw7hi")
-texture_offset = Vector2(-193, -78)
-texture_scale = Vector2(3.2, 3.2)
-texture_rotation = -0.0872665
-polygon = PackedVector2Array(193.431, 100.189, 181, 125, 224, 134, 234.643, 101.212)
+antialiased = true
+texture = SubResource("PlaceholderTexture2D_a75d3")
+polygon = PackedVector2Array(0, 0, 0, 16, 38, 16, 38, 0)
 
 [node name="Slot3" type="Polygon2D" parent="SpellHexagon/Spells"]
-polygon = PackedVector2Array(243.906, 99.471, 230.444, 133.336, 282, 145, 300.06, 100.765)
+position = Vector2(180, 76)
+color = Color(0, 1, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(0, 0, 0, 20, 42, 20, 42, 0)
 
 [node name="Icon" type="Polygon2D" parent="SpellHexagon/Spells/Slot3"]
-color = Color(0.5, 0.5, 0.5, 1)
-texture = ExtResource("4_ylsy7")
-texture_offset = Vector2(-248, -76)
-texture_scale = Vector2(3.2, 3.2)
-texture_rotation = -0.0872665
-polygon = PackedVector2Array(240.643, 101.212, 233, 127, 278, 137, 290.856, 102.234)
+antialiased = true
+texture = SubResource("PlaceholderTexture2D_a75d3")
+polygon = PackedVector2Array(0, 0, 0, 16, 38, 16, 38, 0)
 
 [node name="Slot4" type="Polygon2D" parent="SpellHexagon/Spells"]
-polygon = PackedVector2Array(300.06, 100.765, 284.874, 137.96, 342.421, 148.239, 356.179, 102.059)
+position = Vector2(222, 76)
+color = Color(0, 1, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(0, 0, 0, 20, 42, 20, 42, 0)
 
 [node name="Icon" type="Polygon2D" parent="SpellHexagon/Spells/Slot4"]
-color = Color(0.5, 0.5, 0.5, 1)
-texture = ExtResource("5_1r7ai")
-texture_offset = Vector2(-308, -73)
-texture_scale = Vector2(3.2, 3.2)
-texture_rotation = -0.0872665
-polygon = PackedVector2Array(298.856, 102.234, 287, 132, 336.933, 141.083, 348.068, 103.256)
+antialiased = true
+texture = SubResource("PlaceholderTexture2D_a75d3")
+polygon = PackedVector2Array(0, 0, 0, 16, 38, 16, 38, 0)

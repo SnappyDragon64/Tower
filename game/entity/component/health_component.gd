@@ -32,4 +32,4 @@ func death() -> void:
 
 func disable_hurtbox(flag) -> void:
 	for child in find_children("*", "CollisionShape2D"):
-		child.call_deferred("set_disabled", flag)
+		child.set_deferred("disabled", flag)

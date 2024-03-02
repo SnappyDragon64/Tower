@@ -5,10 +5,15 @@ extends Node2D
 @export var tilt := 0.07
 
 @onready var model: Model = $PodModel
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var movement_flag := false
 var old_x: float
 var direction: Constants.X_DIRECTION
+
+
+func _ready() -> void:
+	animation_player.play("default")
 
 
 func _on_player_position_updated(pos: Vector2) -> void:

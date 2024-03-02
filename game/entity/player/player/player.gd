@@ -111,6 +111,7 @@ func _on_death() -> void:
 		invincibility_tween.stop()
 	
 	WorldManager.respawn_player()
+	UIManager.get_hud().reset()
 
 
 func update_health_bar(health: float, max_health: float, instant := false) -> void:

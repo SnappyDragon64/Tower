@@ -1075,14 +1075,12 @@ animation_player = NodePath("AnimationPlayer")
 position = Vector2(0, -68)
 
 [node name="LowerBody" type="Polygon2D" parent="Parts"]
-position = Vector2(-4, 6)
-rotation = -0.174533
-color = Color(0.784314, 0.305882, 0.376471, 1)
+position = Vector2(0, 4)
+color = Color(0.137255, 0.164706, 0.458824, 1)
 polygon = PackedVector2Array(0, 20, -8.32813, 11.6719, -12, 8, -7.5, -1.5, 6.25, -1.5, 10, 8)
 
 [node name="UpperBody" type="Polygon2D" parent="Parts/LowerBody"]
-rotation = 0.10472
-color = Color(0.760784, 0.886275, 0.941176, 1)
+color = Color(0.235294, 0.32549, 0.780392, 1)
 polygon = PackedVector2Array(-8.125, -0.25, -11, -26, 0, -30, 9, -24, 6.771, -0.25, 0, 4)
 
 [node name="Head" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
@@ -1091,47 +1089,43 @@ color = Color(1, 0.858824, 0.878431, 1)
 polygon = PackedVector2Array(0, -17, 5, -15, 4, -6, 0, -3, -4.8, -6, -6, -15)
 
 [node name="HairFront" type="Polygon2D" parent="Parts/LowerBody/UpperBody/Head"]
-color = Color(0, 0.643137, 1, 1)
-polygon = PackedVector2Array(-5, -21, -8, -18, -9, -14, -8.125, -8.125, -5, -5, -5, -11, -3, -16, -2, -11, 3, -16, 4, -11, 4, -6, 6, -10, 6.4, -13.5, 6, -17, 5, -19, 3, -21, 0, -22)
+color = Color(0.466667, 0.145098, 0.321569, 1)
+polygon = PackedVector2Array(-5, -21, -8, -18, -9, -14, -8, -6, -7, -9, -5, -5, -5, -11, -3, -16, -2, -11, 3, -16, 4, -11, 4, -6, 6, -10, 6.4, -13.5, 6, -17, 5, -19, 3, -21, 0, -22)
 
 [node name="Dorito" type="Polygon2D" parent="Parts/LowerBody/UpperBody/Head/HairFront"]
-color = Color(0, 0.643137, 1, 1)
-polygon = PackedVector2Array(0, -22, 1.875, -25, -2.5, -28.125)
+color = Color(0.466667, 0.145098, 0.321569, 1)
+polygon = PackedVector2Array(0, -22, 1.875, -25, -4, -30)
 
 [node name="HairFlow" type="Polygon2D" parent="Parts/LowerBody/UpperBody/Head/HairFront"]
 z_index = -1
 position = Vector2(0, -15)
-color = Color(0, 0.643137, 1, 1)
-polygon = PackedVector2Array(-26, 29, -5, 1, 3.75, 1.875, 11, 14, 5.38626, -2.39873, -6.37318, -4.05141)
+color = Color(0.466667, 0.145098, 0.321569, 1)
+polygon = PackedVector2Array(-16, 14, -10, 6, -5, 1, 3.75, 1.875, 6, 5, 6, 12, 8, 8, 11, 13, 9, 6, 5.38626, -2.39873, -6.37318, -4.05141, -12, 5)
 
 [node name="HairBack" type="Polygon2D" parent="Parts/LowerBody/UpperBody/Head/HairFront/HairFlow"]
 z_index = -1
 position = Vector2(0, -1)
-color = Color(0, 0.478431, 0.933333, 1)
-polygon = PackedVector2Array(-6.37318, -3.05141, -26, 30, -17, 23, -28, 48, -15, 36, -20, 52, -8, 43, -4, 52, 2, 43, 6, 54, 7, 44, 14, 51, 12, 41, 19, 51, 15, 35, 18, 36, 5.38626, -1.39873)
+color = Color(0.4, 0.145098, 0.368627, 1)
+polygon = PackedVector2Array(-6.37318, -3.05141, -12, 6, -16, 15, -17, 21, -14, 30, -12, 22, -11, 24, -11, 31, -8, 26, -5, 23, -5, 28, -3, 34, 0, 29, 1, 26, 3, 30, 6, 32, 5, 25, 6, 21, 8, 25, 12, 29, 11, 14, 9, 7, 5.38626, -1.39873)
 
 [node name="ArmR" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 position = Vector2(-18, -6)
-rotation = 5.49779
-color = Color(0.658824, 0.152941, 0.160784, 1)
+color = Color(0.0470588, 0, 0.0941176, 1)
 polygon = PackedVector2Array(-3, -1, 4, 25, 3, 1)
 
 [node name="ArmL" type="Polygon2D" parent="Parts/LowerBody/UpperBody"]
 z_index = -1
-position = Vector2(14, -6)
-rotation = 4.88693
-color = Color(0.45098, 0.113725, 0.117647, 1)
+position = Vector2(15, -5)
+color = Color(0.0470588, 0, 0.0941176, 1)
 polygon = PackedVector2Array(2, -1, -3, 23, -2, 1)
 
 [node name="LegR" type="Polygon2D" parent="Parts"]
-position = Vector2(-6, 40)
-rotation = 0.607375
+position = Vector2(-8, 36)
 color = Color(0.0470588, 0, 0.0941176, 1)
 polygon = PackedVector2Array(4, -6, -4, 0, 3, 32)
 
 [node name="LegL" type="Polygon2D" parent="Parts"]
-position = Vector2(-12, 40)
-rotation = 1.309
+position = Vector2(8, 36)
 color = Color(0.0470588, 0, 0.0941176, 1)
 polygon = PackedVector2Array(3, -5, -3, 0, 2, 32)
 
@@ -1155,5 +1149,5 @@ texture = SubResource("CanvasTexture_677v2")
 libraries = {
 "": SubResource("AnimationLibrary_10woe")
 }
-speed_scale = 2.0
-blend_times = [&"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"run", 0.1, &"slide", &"attack", 0.02, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"run", 0.1, &"idle", &"attack", 0.02, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"run", 0.1, &"dash", &"attack", 0.02, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"run", 0.1, &"jump", &"attack", 0.02, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"run", 0.1, &"run", &"attack", 0.02, &"attack", &"slide", 0.1, &"attack", &"idle", 0.1, &"attack", &"dash", 0.1, &"attack", &"jump", 0.1, &"attack", &"run", 0.1, &"attack", &"attack", 0.1]
+speed_scale = 0.2
+blend_times = [&"slide", &"slide", 0.1, &"slide", &"idle", 0.1, &"slide", &"dash", 0.1, &"slide", &"jump", 0.1, &"slide", &"attack", 0.02, &"slide", &"run", 0.1, &"idle", &"slide", 0.1, &"idle", &"idle", 0.1, &"idle", &"dash", 0.1, &"idle", &"jump", 0.1, &"idle", &"attack", 0.02, &"idle", &"run", 0.1, &"dash", &"slide", 0.1, &"dash", &"idle", 0.1, &"dash", &"dash", 0.1, &"dash", &"jump", 0.1, &"dash", &"attack", 0.02, &"dash", &"run", 0.1, &"jump", &"slide", 0.1, &"jump", &"idle", 0.1, &"jump", &"dash", 0.1, &"jump", &"jump", 0.1, &"jump", &"attack", 0.02, &"jump", &"run", 0.1, &"attack", &"slide", 0.1, &"attack", &"idle", 0.1, &"attack", &"dash", 0.1, &"attack", &"jump", 0.1, &"attack", &"attack", 0.1, &"attack", &"run", 0.1, &"run", &"slide", 0.1, &"run", &"idle", 0.1, &"run", &"dash", 0.1, &"run", &"jump", 0.1, &"run", &"attack", 0.02, &"run", &"run", 0.1]

@@ -1,36 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1qnrklgh8lb1"]
+[gd_scene load_steps=4 format=3 uid="uid://d1qnrklgh8lb1"]
 
 [ext_resource type="Texture2D" uid="uid://cqwpa1f4o4s02" path="res://asset/sprite/effect/hurt.png" id="2_wq86m"]
 [ext_resource type="Script" path="res://game/entity/effect/ephemeral_particle.gd" id="3_sbbws"]
 
-[sub_resource type="Curve" id="Curve_tmn8f"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_ibk3f"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [sub_resource type="Gradient" id="Gradient_a2olj"]
-offsets = PackedFloat32Array(0.5, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Hurt" type="CPUParticles2D"]
 amount = 4
 lifetime = 0.8
-randomness = 1.0
-lifetime_randomness = 1.0
 texture = ExtResource("2_wq86m")
+emission_shape = 1
+emission_sphere_radius = 8.0
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 48.0
 initial_velocity_max = 64.0
 damping_min = 8.0
 damping_max = 8.0
-scale_amount_min = 1.6
-scale_amount_max = 2.0
-split_scale = true
-scale_curve_x = SubResource("Curve_tmn8f")
-scale_curve_y = SubResource("Curve_ibk3f")
+scale_amount_min = 0.8
+scale_amount_max = 1.6
 color_ramp = SubResource("Gradient_a2olj")
 script = ExtResource("3_sbbws")

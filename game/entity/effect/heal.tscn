@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://detc3t27rfd7f"]
+
+[ext_resource type="Texture2D" uid="uid://dw1hv0imjg0yj" path="res://asset/sprite/effect/heal.png" id="1_hpmwi"]
+[ext_resource type="Script" path="res://game/entity/effect/ephemeral_particle.gd" id="2_phpij"]
+
+[sub_resource type="Gradient" id="Gradient_a2olj"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Heal" type="CPUParticles2D"]
+lifetime = 0.8
+texture = ExtResource("1_hpmwi")
+emission_shape = 1
+emission_sphere_radius = 32.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 96.0
+initial_velocity_max = 128.0
+damping_min = 16.0
+damping_max = 16.0
+scale_amount_min = 1.2
+scale_amount_max = 2.4
+color_ramp = SubResource("Gradient_a2olj")
+script = ExtResource("2_phpij")

@@ -127,13 +127,11 @@ wait_time = 0.4
 one_shot = true
 
 [node name="SpellController" type="Node2D" parent="."]
+position = Vector2(0, -68)
 script = ExtResource("12_r1f35")
-
-[node name="Spells" type="Node2D" parent="SpellController"]
 
 [node name="SparkAttractor" type="Area2D" parent="SpellController"]
 visible = false
-position = Vector2(0, -68)
 collision_layer = 0
 collision_mask = 8
 
@@ -142,12 +140,15 @@ shape = SubResource("CircleShape2D_pkucp")
 
 [node name="SparkCollector" type="Area2D" parent="SpellController"]
 visible = false
-position = Vector2(0, -68)
 collision_layer = 0
 collision_mask = 8
 
 [node name="Shape" type="CollisionShape2D" parent="SpellController/SparkCollector"]
 shape = SubResource("CircleShape2D_sgi7l")
+
+[node name="CooldownTimer" type="Timer" parent="SpellController"]
+wait_time = 0.8
+one_shot = true
 
 [node name="Raycasts" type="Node2D" parent="."]
 
@@ -209,6 +210,7 @@ position = Vector2(-64, -128)
 [connection signal="body_entered" from="SpellController/SparkAttractor" to="SpellController" method="_on_spark_attractor_body_entered"]
 [connection signal="body_exited" from="SpellController/SparkAttractor" to="SpellController" method="_on_spark_attractor_body_exited"]
 [connection signal="body_entered" from="SpellController/SparkCollector" to="SpellController" method="_on_spark_collector_body_entered"]
+[connection signal="timeout" from="SpellController/CooldownTimer" to="SpellController" method="_on_cooldown_timeout"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/GlitchTimer" to="." method="_on_glitch_timer_timeout"]
 [connection signal="timeout" from="Timers/InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

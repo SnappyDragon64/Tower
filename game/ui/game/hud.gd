@@ -12,3 +12,11 @@ func update_mana_bar(value: float, instant := false) -> void:
 
 func set_active_spell(id: int) -> void:
 	%PlayerStatus.set_active_spell(id)
+
+
+func start_cooldown() -> void:
+	%PlayerStatus.start_cooldown()
+
+
+func reset() -> void:
+	%PlayerStatus.reset()

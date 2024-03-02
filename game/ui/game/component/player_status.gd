@@ -7,9 +7,11 @@ extends Node2D
 @onready var default_mana_polygon: PackedVector2Array = mana_progress.get_polygon()
 @onready var spell_slots: Array[Polygon2D] = [$SpellHexagon/Spells/Slot1/Icon, $SpellHexagon/Spells/Slot2/Icon, $SpellHexagon/Spells/Slot3/Icon, $SpellHexagon/Spells/Slot4/Icon]
 @onready var active_spell: Polygon2D = $SpellHexagon/ActiveSpell
+@onready var cooldown_overlay: Polygon2D = $SpellHexagon/ActiveSpell/Overlay
 
 var health_tween: Tween
 var mana_tween: Tween
+var overlay_tween: Tween
 
 var health: float:
 	set(value):
@@ -74,3 +76,15 @@ func set_active_spell(id: int) -> void:
 			active_spell.set_texture(current_texture)
 		else:
 			current_slot.set_color(Color(0.5, 0.5, 0.5))
+
+
+func start_cooldown() -> void:
+	cooldown_overlay.set_texture_offset(Vector2(0, 86))
+	overlay_tween = get_tree().create_tween()
+	overlay_tween.tween_property(cooldown_overlay, "texture_offset", Vector2(0, -31), 0.8)
+
+
+func reset() -> void:
+	_stop_tween(health_tween)
+	_stop_tween(mana_tween)
+	_stop_tween(overlay_tween)
