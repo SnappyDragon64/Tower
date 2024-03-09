@@ -79,9 +79,9 @@ func set_active_spell(id: int) -> void:
 
 
 func start_cooldown() -> void:
-	cooldown_overlay.set_texture_offset(Vector2(0, 86))
+	cooldown_overlay.set_texture_offset(Vector2(0, 165))
 	overlay_tween = get_tree().create_tween()
-	overlay_tween.tween_property(cooldown_overlay, "texture_offset", Vector2(0, -31), 0.8)
+	overlay_tween.tween_property(cooldown_overlay, "texture_offset", Vector2(0, 37), 0.8)
 
 
 func reset() -> void:

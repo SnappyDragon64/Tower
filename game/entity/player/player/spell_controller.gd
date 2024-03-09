@@ -25,6 +25,7 @@ func _ready() -> void:
 	assert(player != null)
 	
 	player.update_mana_bar(mana, max_mana, true)
+	UIManager.get_hud().set_active_spell(active_spell)
 
 
 func _physics_process(_delta) -> void:
@@ -67,6 +68,7 @@ func cast_spell() -> void:
 		player.health_component.health = min(player.health_component.health + 40.0, player.health_component.max_health)
 		player.update_health_bar(health_component.health, health_component.max_health)
 		var heal_effect = heal_effect_preload.instantiate()
+		heal_effect.set_position(Vector2(0, 60))
 		call_deferred("add_child", heal_effect)
 
 
