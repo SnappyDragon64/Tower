@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ir36qraeslmk"
-path="res://.godot/imported/spark.png-f8775bc16849389c114a14e042226459.ctex"
+uid="uid://cpf8gfxfo74l2"
+path="res://.godot/imported/charge.png-ede1e5f286d26130db7c0fe3123bbb5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/sprite/entity/consumable/spark.png"
-dest_files=["res://.godot/imported/spark.png-f8775bc16849389c114a14e042226459.ctex"]
+source_file="res://asset/sprite/effect/charge.png"
+dest_files=["res://.godot/imported/charge.png-ede1e5f286d26130db7c0fe3123bbb5a.ctex"]
 
 [params]
 

@@ -3,12 +3,8 @@ extends Node
 
 @export var damage := 10.0
 @export var recoil := 1000.0
-@export var max_spark_speed := Vector2(100.0, -200.0)
-@export var spark_probability := 0.6
-@export var spark_amount := range(2, 5)
 
 @onready var effect_kick_slash: Sprite2D
-@onready var spark_preload: PackedScene = preload("res://game/entity/consumable/spark.tscn")
 
 var player: Player
 var valid_states := ["idle", "run", "jump", "fall"]
@@ -24,7 +20,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta) -> void:
-	if player.movement_controller.current_state.state_id in valid_states and player.can_attack and Input.is_action_just_pressed("attack"):
+	if player.movement_controller.current_state.state_id in valid_states and player.can_attack and not player.charging and Input.is_action_just_pressed("attack"):
 		$AttackTimer.start()
 		player.can_attack = false
 		player.attacking = true
@@ -70,8 +66,7 @@ func _on_area_entered(area: Area2D):
 	_apply_recoil()
 	
 	if area is HealthComponent:
-		if area.hurt(damage):
-			_spawn_sparks(area.get_global_position())
+		area.hurt(damage)
 
 
 # Checking recoil_flag prevents recoil from being applied more than once
@@ -79,16 +74,3 @@ func _apply_recoil() -> void:
 	if not recoil_flag:
 		player.velocity.x -= player.get_direction() * recoil
 		recoil_flag = true
-
-
-func _spawn_sparks(pos: Vector2) -> void:
-	var should_spawn := randf()
-	
-	if should_spawn < spark_probability:
-		var amount_to_spawn: int = spark_amount.pick_random()
-		
-		for i in range(amount_to_spawn):
-			var spark_instance = spark_preload.instantiate()
-			spark_instance.velocity.x = randf_range(-max_spark_speed.x, max_spark_speed.x)
-			spark_instance.velocity.y = max_spark_speed.y
-			WorldManager.spawn(spark_instance, pos)

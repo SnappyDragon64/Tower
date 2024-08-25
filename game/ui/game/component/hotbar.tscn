@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://lugnog7qiq0k"]
+
+[ext_resource type="Script" path="res://game/ui/game/component/hotbar.gd" id="1_i8shi"]
+
+[node name="Hotbar" type="Node2D"]
+script = ExtResource("1_i8shi")
+
+[node name="Background" type="Polygon2D" parent="."]
+position = Vector2(40, 0)
+skew = 0.523599
+color = Color(0.760784, 0.788235, 0.8, 1)
+polygon = PackedVector2Array(0, 0, 0, 80, 384, 80, 384, 0)
+
+[node name="Slot1" type="Polygon2D" parent="Background"]
+position = Vector2(4, 4)
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(0, 0, 0, 72, 72, 72, 72, 0)
+
+[node name="Slot2" type="Polygon2D" parent="Background"]
+position = Vector2(80, 4)
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(0, 0, 0, 72, 72, 72, 72, 0)
+
+[node name="Slot3" type="Polygon2D" parent="Background"]
+position = Vector2(156, 4)
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(0, 0, 0, 72, 72, 72, 72, 0)
+
+[node name="Slot4" type="Polygon2D" parent="Background"]
+position = Vector2(232, 4)
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(0, 0, 0, 72, 72, 72, 72, 0)
+
+[node name="Slot5" type="Polygon2D" parent="Background"]
+position = Vector2(308, 4)
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(0, 0, 0, 72, 72, 72, 72, 0)

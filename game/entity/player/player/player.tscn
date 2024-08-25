@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cdcov0ancsa1y"]
+[gd_scene load_steps=17 format=3 uid="uid://cdcov0ancsa1y"]
 
 [ext_resource type="Script" path="res://game/entity/player/player/player.gd" id="1_fawgy"]
 [ext_resource type="PackedScene" uid="uid://caioeub6pwumj" path="res://game/entity/player/player/player_model.tscn" id="2_b4kaf"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://game/entity/player/player/state/slide_state.gd" id="10_1mfyd"]
 [ext_resource type="Script" path="res://game/entity/player/player/attack_controller.gd" id="11_fv8up"]
 [ext_resource type="Script" path="res://game/entity/player/player/spell_controller.gd" id="12_r1f35"]
+[ext_resource type="PackedScene" uid="uid://diq48cdvlvw3r" path="res://game/entity/effect/charge.tscn" id="13_3f252"]
 [ext_resource type="PackedScene" uid="uid://cyck73l1jnys2" path="res://game/entity/player/pod/pod.tscn" id="13_b01jp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfoky"]
@@ -21,12 +22,6 @@ height = 136.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ht55"]
 radius = 60.0
 height = 160.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_pkucp"]
-radius = 144.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_sgi7l"]
-radius = 8.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 10
@@ -130,25 +125,13 @@ one_shot = true
 position = Vector2(0, -68)
 script = ExtResource("12_r1f35")
 
-[node name="SparkAttractor" type="Area2D" parent="SpellController"]
-visible = false
-collision_layer = 0
-collision_mask = 8
-
-[node name="Shape" type="CollisionShape2D" parent="SpellController/SparkAttractor"]
-shape = SubResource("CircleShape2D_pkucp")
-
-[node name="SparkCollector" type="Area2D" parent="SpellController"]
-visible = false
-collision_layer = 0
-collision_mask = 8
-
-[node name="Shape" type="CollisionShape2D" parent="SpellController/SparkCollector"]
-shape = SubResource("CircleShape2D_sgi7l")
-
 [node name="CooldownTimer" type="Timer" parent="SpellController"]
 wait_time = 0.8
 one_shot = true
+
+[node name="Charge" parent="SpellController" instance=ExtResource("13_3f252")]
+visible = false
+position = Vector2(0, -40)
 
 [node name="Raycasts" type="Node2D" parent="."]
 
@@ -190,6 +173,7 @@ wait_time = 0.1
 wait_time = 1.2
 
 [node name="Pod" parent="." instance=ExtResource("13_b01jp")]
+visible = false
 z_index = -5
 position = Vector2(-64, -128)
 
@@ -207,9 +191,6 @@ position = Vector2(-64, -128)
 [connection signal="body_entered" from="AttackController" to="AttackController" method="_on_body_entered"]
 [connection signal="timeout" from="AttackController/AttackTimer" to="AttackController" method="_attack_timeout"]
 [connection signal="timeout" from="AttackController/AttackCooldown" to="AttackController" method="_attack_cooldown_timeout"]
-[connection signal="body_entered" from="SpellController/SparkAttractor" to="SpellController" method="_on_spark_attractor_body_entered"]
-[connection signal="body_exited" from="SpellController/SparkAttractor" to="SpellController" method="_on_spark_attractor_body_exited"]
-[connection signal="body_entered" from="SpellController/SparkCollector" to="SpellController" method="_on_spark_collector_body_entered"]
 [connection signal="timeout" from="SpellController/CooldownTimer" to="SpellController" method="_on_cooldown_timeout"]
 [connection signal="timeout" from="Timers/DashCooldownTimer" to="." method="_dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/GlitchTimer" to="." method="_on_glitch_timer_timeout"]

@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://tblntbsle5co"]
-
-[ext_resource type="PackedScene" uid="uid://cb0lx7tbhrucv" path="res://game/entity/enemy/mite/mite.tscn" id="1_ov2kg"]
+[gd_scene load_steps=2 format=3 uid="uid://tblntbsle5co"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3tt3v"]
 size = Vector2(1000, 100)
@@ -83,19 +81,3 @@ shape = SubResource("RectangleShape2D_3tt3v")
 z_index = 100
 color = Color(0.0588235, 0.0627451, 0.129412, 1)
 polygon = PackedVector2Array(-500, -50, -500, 50, 500, 50, 500, -50)
-
-[node name="Mite" parent="." instance=ExtResource("1_ov2kg")]
-position = Vector2(1160, 670)
-direction = -1
-
-[node name="Mite2" parent="." instance=ExtResource("1_ov2kg")]
-position = Vector2(1301, 670)
-direction = -1
-
-[node name="Mite3" parent="." instance=ExtResource("1_ov2kg")]
-position = Vector2(1021, 670)
-direction = -1
-
-[node name="Mite4" parent="." instance=ExtResource("1_ov2kg")]
-position = Vector2(889, 670)
-direction = -1

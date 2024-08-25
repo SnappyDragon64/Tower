@@ -28,6 +28,7 @@ var jump_count := 0
 var dash_cooldown := false
 var can_attack := true
 var attacking := false
+var charging := false
 var animation_locked := false
 
 
@@ -97,7 +98,7 @@ func start_invincibility() -> void:
 func _invincibility_effect() -> void:
 	invincibility_tween = get_tree().create_tween()
 	invincibility_tween.set_loops(4)
-	invincibility_tween.tween_property(model.get_node("Parts/LowerBody/UpperBody/Head/HairFront"), "modulate", Color(0, 1, 1), 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	invincibility_tween.tween_property(model.get_node("Parts/LowerBody/UpperBody/Head/HairFront"), "modulate", Color(1, 0, 0), 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	invincibility_tween.tween_property(model.get_node("Parts/LowerBody/UpperBody/Head/HairFront"), "modulate", Color(1, 1, 1), 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 

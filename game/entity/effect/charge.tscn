@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyjgdl0xofyd4"]
+[gd_scene load_steps=4 format=3 uid="uid://diq48cdvlvw3r"]
 
-[ext_resource type="Texture2D" uid="uid://dw1hv0imjg0yj" path="res://asset/sprite/effect/heal.png" id="1_hpmwi"]
-[ext_resource type="Script" path="res://game/entity/effect/ephemeral_particle.gd" id="2_6s2lb"]
+[ext_resource type="Texture2D" uid="uid://cpf8gfxfo74l2" path="res://asset/sprite/effect/charge.png" id="1_eq2w2"]
+[ext_resource type="Script" path="res://game/entity/effect/reusable_particle.gd" id="2_k58y8"]
 
 [sub_resource type="Gradient" id="Gradient_a2olj"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Heal" type="CPUParticles2D"]
+[node name="Charge" type="CPUParticles2D"]
 lifetime = 0.8
 speed_scale = 2.0
-texture = ExtResource("1_hpmwi")
+texture = ExtResource("1_eq2w2")
 emission_shape = 3
 emission_rect_extents = Vector2(40, 60)
 direction = Vector2(0, 1)
@@ -22,4 +22,4 @@ damping_max = 8.0
 scale_amount_min = 0.8
 scale_amount_max = 1.6
 color_ramp = SubResource("Gradient_a2olj")
-script = ExtResource("2_6s2lb")
+script = ExtResource("2_k58y8")
